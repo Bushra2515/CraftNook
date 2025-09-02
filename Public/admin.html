@@ -1,0 +1,47 @@
+<!-- <div class="product-images">
+        <% if (product.images && product.images.length) { %>
+        <img
+          class="main-image"
+          src="<%= product.images[0] %>"
+          alt="<%= product.name %>"
+        />
+        <div class="thumbnail-gallery">
+          <% product.images.forEach(img => { %>
+          <img src="<%= p.image %>" alt="<%= product.name %>" />
+          <% }) %>
+        </div>
+        <% } else { %>
+        <img
+          class="main-image"
+          src="/images/placeholder.png"
+          alt="<%= product.name %>"
+        />
+        <% } %>
+      </div> -->
+
+<div class="product-info">
+  <h1><%= product.name %></h1>
+  <p class="price">₹<%= product.price %></p>
+  <p class="description"><%= product.description %></p>
+  <p>
+    Seller:
+    <a href="/seller/<%= product.seller._id %>"
+      ><%= product.seller.sellerProfile?.businessName || product.seller.name
+      %></a
+    >
+  </p>
+
+  <% if (product.category) { %>
+  <p class="category">Category: <%= product.category %></p>
+  <% } %> <% if (product.stock > 0) { %>
+  <p class="stock in-stock">In Stock</p>
+  <% } else { %>
+  <p class="stock out-of-stock">Out of Stock</p>
+  <% } %>
+
+  <form action="/cart/add" method="POST" class="add-to-cart-form">
+    <input type="hidden" name="productId" value="<%= product._id %>" />
+
+    <button type="submit" class="btn">Add to Cart</button>
+  </form>
+</div>

@@ -1,0 +1,12 @@
+<h2>My Cart</h2>
+<ul>
+  <% cart.items.forEach(item => { %>
+  <li>
+    <%= item.product.name %> - <%= item.quantity %>
+    <form method="POST" action="/cart/remove">
+      <input type="hidden" name="productId" value="<%= item.product._id %>" />
+      <button type="submit">Remove</button>
+    </form>
+  </li>
+  <% }) %>
+</ul>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Team</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        min-height: 100vh;
+        padding: 40px 20px;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 50px;
+        color: white;
+      }
+
+      .header h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+
+      .header p {
+        font-size: 1.1rem;
+        opacity: 0.9;
+      }
+
+      .cards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 25px;
+        padding: 20px 0;
+      }
+
+      .profile-card {
+        background: white;
+        border-radius: 20px;
+        padding: 60px 20px 25px;
+        text-align: center;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        position: relative;
+        margin-top: 60px;
+        height: 260px;
+      }
+
+      .profile-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+      }
+
+      .profile-photo {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        color: white;
+        border: 4px solid white;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        position: absolute;
+        top: -60px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .profile-name {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: #2d3748;
+        margin-bottom: 4px;
+      }
+
+      .profile-role {
+        font-size: 0.8rem;
+        color: #a0aec0;
+        font-weight: 400;
+        margin-bottom: 10px;
+      }
+
+      .profile-bio {
+        font-size: 0.75rem;
+        color: #718096;
+        line-height: 1.4;
+        text-align: center;
+        max-width: 200px;
+        margin: 0 auto;
+        font-weight: 300;
+      }
+
+      @media (max-width: 768px) {
+        .header h1 {
+          font-size: 2rem;
+        }
+
+        .cards-grid {
+          grid-template-columns: 1fr;
+          gap: 20px;
+        }
+
+        .profile-card {
+          padding: 30px 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Featured Sellers</h1>
+        <p>Discover amazing products from trusted marketplace sellers</p>
+      </div>
+
+      <div class="cards-grid">
+        <div class="profile-card">
+          <div class="profile-photo">👩‍🍳</div>
+          <div class="profile-name">Sarah's Kitchen</div>
+          <div class="profile-role">Gourmet Food Seller</div>
+          <div class="profile-bio">
+            Handcrafted artisanal foods and specialty ingredients sourced from
+            local farms and trusted suppliers worldwide.
+          </div>
+        </div>
+
+        <div class="profile-card">
+          <div class="profile-photo">📱</div>
+          <div class="profile-name">TechHub Store</div>
+          <div class="profile-role">Electronics & Gadgets</div>
+          <div class="profile-bio">
+            Latest smartphones, laptops, and cutting-edge technology accessories
+            with warranty and fast shipping guaranteed.
+          </div>
+        </div>
+
+        <div class="profile-card">
+          <div class="profile-photo">👗</div>
+          <div class="profile-name">Fashion Forward</div>
+          <div class="profile-role">Trendy Clothing</div>
+          <div class="profile-bio">
+            Curated collection of stylish apparel and accessories for the modern
+            lifestyle, updated with new arrivals weekly.
+          </div>
+        </div>
+
+        <div class="profile-card">
+          <div class="profile-photo">🌱</div>
+          <div class="profile-name">Green Garden Co.</div>
+          <div class="profile-role">Plants & Garden Supplies</div>
+          <div class="profile-bio">
+            Organic plants, seeds, and eco-friendly gardening tools to help you
+            create beautiful and sustainable outdoor spaces.
+          </div>
+        </div>
+
+        <div class="profile-card">
+          <div class="profile-photo">📚</div>
+          <div class="profile-name">BookWorm's Paradise</div>
+          <div class="profile-role">Books & Literature</div>
+          <div class="profile-bio">
+            Extensive collection of bestsellers, rare finds, and educational
+            materials for readers of all ages and interests.
+          </div>
+        </div>
+
+        <div class="profile-card">
+          <div class="profile-photo">🎨</div>
+          <div class="profile-name">Artisan Crafts</div>
+          <div class="profile-role">Handmade Art & Crafts</div>
+          <div class="profile-bio">
+            Unique handcrafted jewelry, pottery, and artistic creations made by
+            talented local artisans and traditional craftspeople.
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      (function () {
+        function c() {
+          var b = a.contentDocument || a.contentWindow.document;
+          if (b) {
+            var d = b.createElement("script");
+            d.innerHTML =
+              "window.__CF$cv$params={r:'978d1f4081e83f03',t:'MTc1NjgxNzMxMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
+            b.getElementsByTagName("head")[0].appendChild(d);
+          }
+        }
+        if (document.body) {
+          var a = document.createElement("iframe");
+          a.height = 1;
+          a.width = 1;
+          a.style.position = "absolute";
+          a.style.top = 0;
+          a.style.left = 0;
+          a.style.border = "none";
+          a.style.visibility = "hidden";
+          document.body.appendChild(a);
+          if ("loading" !== document.readyState) c();
+          else if (window.addEventListener)
+            document.addEventListener("DOMContentLoaded", c);
+          else {
+            var e = document.onreadystatechange || function () {};
+            document.onreadystatechange = function (b) {
+              e(b);
+              "loading" !== document.readyState &&
+                ((document.onreadystatechange = e), c());
+            };
+          }
+        }
+      })();
+    </script>
+  </body>
+</html>

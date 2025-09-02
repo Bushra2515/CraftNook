@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>User Dashboard</title>
+  </head>
+  <body>
+    <h1>Welcome to CraftNook 🛍️</h1>
+    <a href="/user/logout">Logout</a>
+
+    <h2>Latest Products</h2>
+    <ul>
+      <% if (products.length === 0) { %>
+      <li>No products available yet.</li>
+      <% } else { %> <% products.forEach(p => { %>
+      <li>
+        <%= p.name %> — $<%= p.price %> (by <%= p.seller ? p.seller.name :
+        "Unknown" %>)
+      </li>
+      <% }) %> <% } %>
+    </ul>
+  </body>
+</html>

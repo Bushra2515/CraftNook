@@ -1,0 +1,71 @@
+<!-- <!DOCTYPE html>
+<html>
+  <head>
+    <title>Add Product</title>
+  </head>
+  <body>
+    <a href="/index">Home</a>
+    <h1>Add a New Product</h1>
+
+    <form action="/add-product" method="POST">
+      <label>Name:</label>
+      <input type="text" name="name" required /><br /><br />
+
+      <label>Description:</label>
+      <textarea name="description"></textarea><br /><br />
+
+      <label>Price (₹):</label>
+      <input type="number" name="price" step="0.01" required /><br /><br />
+
+      <label>Image URL:</label>
+      <input type="text" name="image" /><br /><br />
+
+      <button type="submit">Add Product</button>
+    </form>
+
+    <a href="/products">Back to Products</a>
+  </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Add Product</title>
+  </head>
+  <body>
+    <h2>Add Product</h2>
+    <% if (error) { %>
+    <div style="color: red"><%= error %></div>
+    <% } %>
+    <form action="/seller/addproduct" method="POST">
+      <input type="text" name="name" placeholder="Product name" required />
+      <textarea
+        name="description"
+        placeholder="Description"
+        required
+      ></textarea>
+
+      <input type="number" name="price" placeholder="Price" required />
+      <select name="category">
+        <option value="bakery">Bakery</option>
+        <option value="handmade">Handmade</option>
+        <option value="other">Other</option>
+      </select>
+      <input type="text" name="seller" placeholder="Seller name" required />
+      <label for="">Where do you sell?</label>
+      <select name="location" required>
+        <option value="local">Local (City/Town)</option>
+        <option value="state">State</option>
+        <option value="region">Region</option>
+        <option value="worldwide">Worldwide</option>
+      </select>
+      <input
+        type="text"
+        name="locationName"
+        placeholder="Enter location Name"
+      />
+      <button type="submit">Add Product</button>
+    </form>
+  </body>
+</html>

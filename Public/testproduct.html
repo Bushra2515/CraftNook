@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Cards</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, Cantarell, sans-serif;
+        background-color: #f8f9fa;
+        padding: 40px 20px;
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .main-title {
+        text-align: center;
+        font-size: 36px;
+        font-weight: 700;
+        color: #212529;
+        margin-bottom: 50px;
+      }
+
+      .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+      }
+
+      .product-card {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .product-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+      }
+
+      .product-image {
+        height: 160px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+
+      .image-1 {
+        background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+      }
+      .image-2 {
+        background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+      }
+      .image-3 {
+        background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%);
+      }
+      .image-4 {
+        background: linear-gradient(135deg, #e8f5e8 0%, #a5d6a7 100%);
+      }
+      .image-5 {
+        background: linear-gradient(135deg, #f3e5f5 0%, #ce93d8 100%);
+      }
+      .image-6 {
+        background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+      }
+
+      .product-details {
+        padding: 18px;
+      }
+
+      .product-title {
+        font-size: 16px;
+        font-weight: 700;
+        color: #212529;
+        margin-bottom: 6px;
+      }
+
+      .product-description {
+        color: #6c757d;
+        font-size: 13px;
+        margin-bottom: 12px;
+        line-height: 1.4;
+      }
+
+      .seller-info {
+        margin-bottom: 12px;
+      }
+
+      .seller-label {
+        font-size: 12px;
+        color: #adb5bd;
+        margin-bottom: 4px;
+      }
+
+      .seller-name {
+        font-weight: 600;
+        color: #212529;
+        margin-bottom: 4px;
+        font-size: 14px;
+      }
+
+      .seller-location {
+        display: flex;
+        align-items: center;
+        font-size: 12px;
+        color: #6c757d;
+      }
+
+      .location-icon {
+        width: 14px;
+        height: 14px;
+        margin-right: 4px;
+        fill: currentColor;
+      }
+
+      .price-section {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 16px;
+      }
+
+      .price {
+        font-size: 20px;
+        font-weight: 700;
+        color: #212529;
+      }
+
+      .shipping {
+        color: #28a745;
+        font-weight: 600;
+        font-size: 12px;
+      }
+
+      .add-to-cart-btn {
+        width: 100%;
+        background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+        color: white;
+        font-weight: 600;
+        padding: 10px 16px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        font-size: 13px;
+      }
+
+      .add-to-cart-btn:hover {
+        background: linear-gradient(135deg, #0056b3 0%, #004085 100%);
+        transform: translateY(-1px);
+      }
+
+      .cart-icon {
+        width: 18px;
+        height: 18px;
+        margin-right: 8px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .product-icon {
+        width: 80px;
+        height: 80px;
+      }
+
+      @media (max-width: 768px) {
+        .product-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .main-title {
+          font-size: 28px;
+          margin-bottom: 40px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="main-title">Featured Products</h1>
+
+      <div class="product-grid">
+        <!-- Headphones -->
+        <div class="product-card">
+          <div class="product-image image-1">
+            <svg class="product-icon" viewBox="0 0 120 120" fill="none">
+              <circle
+                cx="60"
+                cy="60"
+                r="35"
+                fill="#007bff"
+                stroke="#ffffff"
+                stroke-width="3"
+              />
+              <circle cx="60" cy="60" r="25" fill="#e3f2fd" />
+              <circle cx="60" cy="60" r="12" fill="#343a40" />
+              <path
+                d="M35 45 Q60 30 85 45"
+                stroke="#007bff"
+                stroke-width="5"
+                fill="none"
+                stroke-linecap="round"
+              />
+              <circle
+                cx="40"
+                cy="50"
+                r="8"
+                fill="#007bff"
+                stroke="#ffffff"
+                stroke-width="2"
+              />
+              <circle
+                cx="80"
+                cy="50"
+                r="8"
+                fill="#007bff"
+                stroke="#ffffff"
+                stroke-width="2"
+              />
+            </svg>
+          </div>
+          <div class="product-details">
+            <h3 class="product-title">Wireless Headphones</h3>
+            <p class="product-description">
+              Premium noise-canceling headphones with 30-hour battery
+            </p>
+            <div class="seller-info">
+              <p class="seller-label">Sold by</p>
+              <p class="seller-name">TechStore Pro</p>
+              <div class="seller-location">
+                <svg class="location-icon" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                  />
+                </svg>
+                New York, NY
+              </div>
+            </div>
+            <div class="price-section">
+              <span class="price">$199</span>
+              <span class="shipping">Free shipping</span>
+            </div>
+            <button class="add-to-cart-btn">
+              <svg class="cart-icon" viewBox="0 0 24 24">
+                <path
+                  d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5-6m0 0h15M17 21a2 2 0 100-4 2 2 0 000 4zM9 21a2 2 0 100-4 2 2 0 000 4z"
+                />
+              </svg>
+              Add to Cart
+            </button>
+          </div>
+        </div>
+
+        <!-- Smart Watch -->
+        <div class="product-card">
+          <div class="product-image image-2">
+            <svg class="product-icon" viewBox="0 0 120 120" fill="none">
+              <rect
+                x="30"
+                y="40"
+                width="60"
+                height="40"
+                rx="8"
+                fill="#ffc107"
+                stroke="#ffffff"
+                stroke-width="3"
+              />
+              <rect
+                x="35"
+                y="45"
+                width="50"
+                height="30"
+                rx="4"
+                fill="#fff8e1"
+              />
+              <circle cx="60" cy="60" r="12" fill="#343a40" />
+              <circle cx="60" cy="60" r="6" fill="#ffc107" />
+              <rect
+                x="45"
+                y="25"
+                width="30"
+                height="15"
+                rx="3"
+                fill="#ffc107"
+              />
+            </svg>
+          </div>
+          <div class="product-details">
+            <h3 class="product-title">Smart Watch</h3>
+            <p class="product-description">
+              Fitness tracker with heart rate monitor and GPS
+            </p>
+            <div class="seller-info">
+              <p class="seller-label">Sold by</p>
+              <p class="seller-name">WearTech</p>
+              <div class="seller-location">
+                <svg class="location-icon" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                  />
+                </svg>
+                Los Angeles, CA
+              </div>
+            </div>
+            <div class="price-section">
+              <span class="price">$299</span>
+              <span class="shipping">Free shipping</span>
+            </div>
+            <button class="add-to-cart-btn">
+              <svg class="cart-icon" viewBox="0 0 24 24">
+                <path
+                  d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5-6m0 0h15M17 21a2 2 0 100-4 2 2 0 000 4zM9 21a2 2 0 100-4 2 2 0 000 4z"
+                />
+              </svg>
+              Add to Cart
+            </button>
+          </div>
+        </div>
+
+        <!-- Tablet -->
+        <div class="product-card">
+          <div class="product-image image-3">
+            <svg class="product-icon" viewBox="0 0 120 120" fill="none">
+              <rect
+                x="35"
+                y="30"
+                width="50"
+                height="60"
+                rx="8"
+                fill="#6f42c1"
+                stroke="#ffffff"
+                stroke-width="3"
+              />
+              <rect
+                x="40"
+                y="35"
+                width="40"
+                height="50"
+                rx="4"
+                fill="#e8eaf6"
+              />
+              <circle cx="60" cy="25" r="3" fill="#6f42c1" />
+              <rect x="50" y="85" width="20" height="4" rx="2" fill="#6f42c1" />
+            </svg>
+          </div>
+          <div class="product-details">
+            <h3 class="product-title">Tablet Pro</h3>
+            <p class="product-description">
+              10-inch tablet with stylus support and keyboard
+            </p>
+            <div class="seller-info">
+              <p class="seller-label">Sold by</p>
+              <p class="seller-name">TabletWorld</p>
+              <div class="seller-location">
+                <svg class="location-icon" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                  />
+                </svg>
+                Seattle, WA
+              </div>
+            </div>
+            <div class="price-section">
+              <span class="price">$599</span>
+              <span class="shipping">Free shipping</span>
+            </div>
+            <button class="add-to-cart-btn">
+              <svg class="cart-icon" viewBox="0 0 24 24">
+                <path
+                  d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5-6m0 0h15M17 21a2 2 0 100-4 2 2 0 000 4zM9 21a2 2 0 100-4 2 2 0 000 4z"
+                />
+              </svg>
+              Add to Cart
+            </button>
+          </div>
+        </div>
+
+        <!-- Gaming Laptop -->
+        <div class="product-card">
+          <div class="product-image image-4">
+            <svg class="product-icon" viewBox="0 0 120 120" fill="none">
+              <rect
+                x="25"
+                y="35"
+                width="70"
+                height="45"
+                rx="6"
+                fill="#28a745"
+                stroke="#ffffff"
+                stroke-width="3"
+              />
+              <rect
+                x="30"
+                y="40"
+                width="60"
+                height="35"
+                rx="3"
+                fill="#e8f5e8"
+              />
+              <rect
+                x="35"
+                y="45"
+                width="50"
+                height="25"
+                rx="2"
+                fill="#343a40"
+              />
+              <rect x="45" y="82" width="30" height="8" rx="4" fill="#28a745" />
+            </svg>
+          </div>
+          <div class="product-details">
+            <h3 class="product-title">Gaming Laptop</h3>
+            <p class="product-description">
+              High-performance laptop with RTX graphics card
+            </p>
+            <div class="seller-info">
+              <p class="seller-label">Sold by</p>
+              <p class="seller-name">GameHub</p>
+              <div class="seller-location">
+                <svg class="location-icon" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                  />
+                </svg>
+                Austin, TX
+              </div>
+            </div>
+            <div class="price-section">
+              <span class="price">$1,299</span>
+              <span class="shipping">Free shipping</span>
+            </div>
+            <button class="add-to-cart-btn">
+              <svg class="cart-icon" viewBox="0 0 24 24">
+                <path
+                  d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5-6m0 0h15M17 21a2 2 0 100-4 2 2 0 000 4zM9 21a2 2 0 100-4 2 2 0 000 4z"
+                />
+              </svg>
+              Add to Cart
+            </button>
+          </div>
+        </div>
+
+        <!-- Gaming Mouse -->
+        <div class="product-card">
+          <div class="product-image image-5">
+            <svg class="product-icon" viewBox="0 0 120 120" fill="none">
+              <ellipse
+                cx="60"
+                cy="60"
+                rx="30"
+                ry="20"
+                fill="#9c27b0"
+                stroke="#ffffff"
+                stroke-width="3"
+              />
+              <ellipse cx="60" cy="60" rx="20" ry="12" fill="#f3e5f5" />
+              <circle cx="60" cy="55" r="4" fill="#9c27b0" />
+              <circle cx="55" cy="65" r="2" fill="#9c27b0" />
+              <circle cx="65" cy="65" r="2" fill="#9c27b0" />
+              <rect x="50" y="75" width="20" height="8" rx="4" fill="#9c27b0" />
+            </svg>
+          </div>
+          <div class="product-details">
+            <h3 class="product-title">Gaming Mouse</h3>
+            <p class="product-description">
+              RGB gaming mouse with 12000 DPI sensor
+            </p>
+            <div class="seller-info">
+              <p class="seller-label">Sold by</p>
+              <p class="seller-name">GamerGear</p>
+              <div class="seller-location">
+                <svg class="location-icon" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                  />
+                </svg>
+                Chicago, IL
+              </div>
+            </div>
+            <div class="price-section">
+              <span class="price">$79</span>
+              <span class="shipping">Free shipping</span>
+            </div>
+            <button class="add-to-cart-btn">
+              <svg class="cart-icon" viewBox="0 0 24 24">
+                <path
+                  d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5-6m0 0h15M17 21a2 2 0 100-4 2 2 0 000 4zM9 21a2 2 0 100-4 2 2 0 000 4z"
+                />
+              </svg>
+              Add to Cart
+            </button>
+          </div>
+        </div>
+
+        <!-- Digital Camera -->
+        <div class="product-card">
+          <div class="product-image image-6">
+            <svg class="product-icon" viewBox="0 0 120 120" fill="none">
+              <rect
+                x="30"
+                y="40"
+                width="60"
+                height="40"
+                rx="6"
+                fill="#dc3545"
+                stroke="#ffffff"
+                stroke-width="3"
+              />
+              <rect
+                x="35"
+                y="45"
+                width="50"
+                height="30"
+                rx="4"
+                fill="#ffebee"
+              />
+              <circle cx="60" cy="60" r="15" fill="#343a40" />
+              <circle cx="60" cy="60" r="8" fill="#dc3545" />
+              <rect
+                x="35"
+                y="25"
+                width="15"
+                height="10"
+                rx="2"
+                fill="#dc3545"
+              />
+              <rect x="50" y="25" width="10" height="8" rx="2" fill="#dc3545" />
+            </svg>
+          </div>
+          <div class="product-details">
+            <h3 class="product-title">Digital Camera</h3>
+            <p class="product-description">
+              Professional DSLR camera with 24MP sensor
+            </p>
+            <div class="seller-info">
+              <p class="seller-label">Sold by</p>
+              <p class="seller-name">PhotoPro</p>
+              <div class="seller-location">
+                <svg class="location-icon" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                  />
+                </svg>
+                Miami, FL
+              </div>
+            </div>
+            <div class="price-section">
+              <span class="price">$899</span>
+              <span class="shipping">Free shipping</span>
+            </div>
+            <button class="add-to-cart-btn">
+              <svg class="cart-icon" viewBox="0 0 24 24">
+                <path
+                  d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5-6m0 0h15M17 21a2 2 0 100-4 2 2 0 000 4zM9 21a2 2 0 100-4 2 2 0 000 4z"
+                />
+              </svg>
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      (function () {
+        function c() {
+          var b = a.contentDocument || a.contentWindow.document;
+          if (b) {
+            var d = b.createElement("script");
+            d.innerHTML =
+              "window.__CF$cv$params={r:'977b1d7fd76741a2',t:'MTc1NjYyODQ5NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
+            b.getElementsByTagName("head")[0].appendChild(d);
+          }
+        }
+        if (document.body) {
+          var a = document.createElement("iframe");
+          a.height = 1;
+          a.width = 1;
+          a.style.position = "absolute";
+          a.style.top = 0;
+          a.style.left = 0;
+          a.style.border = "none";
+          a.style.visibility = "hidden";
+          document.body.appendChild(a);
+          if ("loading" !== document.readyState) c();
+          else if (window.addEventListener)
+            document.addEventListener("DOMContentLoaded", c);
+          else {
+            var e = document.onreadystatechange || function () {};
+            document.onreadystatechange = function (b) {
+              e(b);
+              "loading" !== document.readyState &&
+                ((document.onreadystatechange = e), c());
+            };
+          }
+        }
+      })();
+    </script>
+  </body>
+</html>

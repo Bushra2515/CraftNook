@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= product.name %> - CraftNook</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <a href="/" class="logo">CraftNook</a>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/cart">Cart</a></li>
+          <li><a href="/seller">Become a Seller</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section>
+        <div class="container">
+          <div class="product-detail-container">
+            <div class="product-detail-image">
+              <img
+                src="<%= product.image %>"
+                alt="<%= product.name %>"
+                class="product-d-image"
+              />
+            </div>
+            <div class="product-detail-info">
+              <div>
+                <h1 class="product-detail-title"><%= product.name %></h1>
+                <!-- <p class="product-meta">Model: PWH-2024 | SKU: 12345</p> -->
+              </div>
+              <!-- Rating -->
+              <div class="p-d-rating">
+                <div class="p-d-stars">
+                  <span>★★★★</span><span class="p-d-empty">★</span>
+                </div>
+                <span class="p-d-rating-text">(4.2)</span>
+                <a href="#reviews" class="p-d-rating-link">128 reviews</a>
+              </div>
+              <!-- Price -->
+              <div class="p-d-price-section">
+                <div class="p-d-price-row">
+                  <span class="p-d-current-price">₹<%= product.price %></span>
+                  <!-- <span class="p-d-original-price">$249.99</span>
+                  <span class="p-d-discount-badge">20% OFF</span> -->
+                </div>
+                <p class="p-d-stock-info">✓ In Stock - Free Shipping</p>
+              </div>
+
+              <!-- Color Selection -->
+              <!-- <div class="option-section">
+              
+                <h3 class="option-label">Color</h3>
+                <div class="color-options">
+                  <button
+                    class="color-option color-black selected"
+                    onclick="selectColor('black')"
+                    data-color="black"
+                  ></button>
+                  <button
+                    class="color-option color-white"
+                    onclick="selectColor('white')"
+                    data-color="white"
+                  ></button>
+                  <button
+                    class="color-option color-blue"
+                    onclick="selectColor('blue')"
+                    data-color="blue"
+                  ></button>
+                </div>
+              </div> -->
+
+              <!-- Quantity -->
+              <div class="p-d-option-section">
+                <h3 class="p-d-option-label">Quantity</h3>
+                <div class="p-d-quantity-controls">
+                  <button class="p-d-quantity-btn" onclick="changeQuantity(-1)">
+                    -
+                  </button>
+                  <span class="p-d-quantity-display" id="quantity">1</span>
+                  <button class="p-d-quantity-btn" onclick="changeQuantity(1)">
+                    +
+                  </button>
+                </div>
+              </div>
+
+              <!-- <% if (product.category) { %>
+              <p class="category">Category: <%= product.category %></p>
+              <% } %> <% if (product.stock > 0) { %>
+              <p class="stock in-stock">In Stock</p>
+              <% } else { %>
+              <p class="stock out-of-stock">Out of Stock</p>
+              <% } %> -->
+
+              <!-- Add to Cart -->
+              <div class="p-d-action-buttons">
+                <button class="p-d-btn p-d-btn-primary" onclick="addToCart()">
+                  Add to Cart - $<span id="totalPrice"
+                    ><%= product.price %></span
+                  >
+                </button>
+                <button class="p-d-btn p-d-btn-secondary">
+                  ♡ Add to Wishlist
+                </button>
+              </div>
+
+              <!-- Product Features -->
+              <div class="p-d-features">
+                <h3 class="p-d-features-title">Key Features</h3>
+                <ul class="p-d-features-list">
+                  <li>
+                    <span class="p-d-check-icon">✓</span> Active Noise
+                    Cancellation
+                  </li>
+                  <li>
+                    <span class="p-d-check-icon">✓</span> 30-hour Battery Life
+                  </li>
+                  <li>
+                    <span class="p-d-check-icon">✓</span> Bluetooth 5.0
+                    Connectivity
+                  </li>
+                  <li>
+                    <span class="p-d-check-icon">✓</span> Premium Leather
+                    Cushions
+                  </li>
+                  <li>
+                    <span class="p-d-check-icon">✓</span> Quick Charge (5min =
+                    3hrs)
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tabbed Content Section -->
+          <div class="p-d-tabs">
+            <!-- Tab Navigation -->
+            <div class="p-d-tab-nav">
+              <button
+                class="p-d-tab-button p-d-active"
+                onclick="switchTab('description', event)"
+              >
+                Description
+              </button>
+              <button
+                class="p-d-tab-button"
+                onclick="switchTab('specifications', event)"
+              >
+                Specifications
+              </button>
+              <button
+                class="p-d-tab-button"
+                onclick="switchTab('shipping', event)"
+              >
+                Shipping & Returns
+              </button>
+              <button
+                class="p-d-tab-button"
+                onclick="switchTab('seller', event)"
+              >
+                Seller Info
+              </button>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="p-d-tab-content p-d-active" id="content-description">
+              <p style="margin-bottom: 1rem; color: #6b7280; line-height: 1.6">
+                Experience audio like never before with our Premium Wireless
+                Headphones. Engineered with cutting-edge technology and premium
+                materials, these headphones deliver exceptional sound quality
+                and comfort for extended listening sessions.
+              </p>
+              <p style="margin-bottom: 1rem; color: #6b7280; line-height: 1.6">
+                The advanced active noise cancellation technology blocks out
+                ambient noise, allowing you to immerse yourself completely in
+                your music, podcasts, or calls. With up to 30 hours of battery
+                life, you can enjoy uninterrupted audio throughout your day.
+              </p>
+              <h3
+                style="
+                  font-size: 1.1rem;
+                  font-weight: 600;
+                  color: #111827;
+                  margin: 1.5rem 0 0.75rem 0;
+                "
+              >
+                Key Features
+              </h3>
+              <ul style="color: #6b7280; line-height: 1.6">
+                <li style="margin-bottom: 0.5rem">
+                  • Premium leather ear cushions for maximum comfort
+                </li>
+                <li style="margin-bottom: 0.5rem">
+                  • Advanced 40mm dynamic drivers for rich, detailed sound
+                </li>
+                <li style="margin-bottom: 0.5rem">
+                  • Adaptive noise cancellation with transparency mode
+                </li>
+                <li style="margin-bottom: 0.5rem">
+                  • Multi-device connectivity with seamless switching
+                </li>
+                <li style="margin-bottom: 0.5rem">
+                  • Voice assistant integration (Siri, Google Assistant)
+                </li>
+                <li style="margin-bottom: 0.5rem">
+                  • Foldable design for easy portability
+                </li>
+              </ul>
+            </div>
+
+            <div class="p-d-tab-content" id="content-specifications">
+              <div class="p-d-specs-grid">
+                <div class="p-d-spec-group">
+                  <h3>Audio Specifications</h3>
+                  <div class="p-d-spec-item">
+                    <span class="p-d-spec-label">Driver Size:</span>
+                    <span class="p-d-spec-value">40mm Dynamic</span>
+                  </div>
+                  <div class="p-d-spec-item">
+                    <span class="p-d-spec-label">Frequency Response:</span>
+                    <span class="p-d-spec-value">20Hz - 20kHz</span>
+                  </div>
+                  <div class="p-d-spec-item">
+                    <span class="p-d-spec-label">Impedance:</span>
+                    <span class="p-d-spec-value">32 Ohms</span>
+                  </div>
+                  <div class="p-d-spec-item">
+                    <span class="p-d-spec-label">Sensitivity:</span>
+                    <span class="p-d-spec-value">110 dB SPL</span>
+                  </div>
+                  <div class="p-d-spec-item">
+                    <span class="p-d-spec-label">THD:</span>
+                    <span class="p-d-spec-value">< 0.1%</span>
+                  </div>
+                </div>
+                <div class="p-d-spec-group">
+                  <h3>General Specifications</h3>
+                  <div class="p-d-spec-item">
+                    <span class="p-d-spec-label">Weight:</span>
+                    <span class="p-d-spec-value">250g</span>
+                  </div>
+                  <div class="p-d-spec-item">
+                    <span class="p-d-spec-label">Battery Life:</span>
+                    <span class="p-d-spec-value">30 hours (ANC on)</span>
+                  </div>
+                  <div class="p-d-spec-item">
+                    <span class="p-d-spec-label">Charging Time:</span>
+                    <span class="p-d-spec-value">2 hours</span>
+                  </div>
+                  <div class="p-d-spec-item">
+                    <span class="p-d-spec-label">Quick Charge:</span>
+                    <span class="p-d-spec-value">5min = 3hrs</span>
+                  </div>
+                  <div class="p-d-spec-item">
+                    <span class="p-d-spec-label">Bluetooth:</span>
+                    <span class="p-d-spec-value">5.0</span>
+                  </div>
+                  <div class="p-d-spec-item">
+                    <span class="p-d-spec-label">Range:</span>
+                    <span class="p-d-spec-value">10m (33ft)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-d-tab-content" id="content-shipping">
+              <div class="p-d-shipping-grid">
+                <div>
+                  <h3
+                    style="
+                      font-size: 1.1rem;
+                      font-weight: 600;
+                      color: #111827;
+                      margin-bottom: 1rem;
+                    "
+                  >
+                    Shipping Information
+                  </h3>
+                  <div class="p-d-shipping-option">
+                    <div class="p-d-shipping-icon">🚚</div>
+                    <div class="p-d-shipping-info">
+                      <h4>Free Standard Shipping</h4>
+                      <p>5-7 business days • Orders over $50</p>
+                    </div>
+                  </div>
+                  <div class="p-d-shipping-option">
+                    <div class="p-d-shipping-icon">⚡</div>
+                    <div class="p-d-shipping-info">
+                      <h4>Express Shipping</h4>
+                      <p>2-3 business days • $9.99</p>
+                    </div>
+                  </div>
+                  <div class="p-d-shipping-option">
+                    <div class="p-d-shipping-icon">🎯</div>
+                    <div class="p-d-shipping-info">
+                      <h4>Next Day Delivery</h4>
+                      <p>Order by 2PM • $19.99</p>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <h3
+                    style="
+                      font-size: 1.1rem;
+                      font-weight: 600;
+                      color: #111827;
+                      margin-bottom: 1rem;
+                    "
+                  >
+                    Returns & Exchanges
+                  </h3>
+                  <div class="p-d-shipping-option">
+                    <div class="p-d-shipping-icon">↩️</div>
+                    <div class="p-d-shipping-info">
+                      <h4>30-Day Returns</h4>
+                      <p>Free returns within 30 days of purchase</p>
+                    </div>
+                  </div>
+                  <div class="p-d-shipping-option">
+                    <div class="p-d-shipping-icon">🔄</div>
+                    <div class="p-d-shipping-info">
+                      <h4>Easy Exchanges</h4>
+                      <p>Hassle-free size and color exchanges</p>
+                    </div>
+                  </div>
+                  <div class="p-d-shipping-option">
+                    <div class="p-d-shipping-icon">🛡️</div>
+                    <div class="p-d-shipping-info">
+                      <h4>1-Year Warranty</h4>
+                      <p>Full manufacturer warranty included</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-d-tab-content" id="content-seller">
+              <div class="p-d-seller-content">
+                <div class="p-d-seller-header">
+                  <div class="p-d-seller-avatar">TS</div>
+                  <div class="p-d-seller-info">
+                    <h3>TechStore Official</h3>
+                    <div class="p-d-seller-rating">
+                      <span class="p-d-stars">★★★★★</span>
+                      <span>(4.8) • 15,234 reviews</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="p-d-seller-stats">
+                  <div class="p-d-seller-stat">
+                    <div class="p-d-seller-stat-value">98%</div>
+                    <div class="p-d-seller-stat-label">Positive Feedback</div>
+                  </div>
+                  <div class="p-d-seller-stat">
+                    <div class="p-d-seller-stat-value">24hrs</div>
+                    <div class="p-d-seller-stat-label">Response Time</div>
+                  </div>
+                  <div class="p-d-seller-stat">
+                    <div class="p-d-seller-stat-value">5 years</div>
+                    <div class="p-d-seller-stat-label">Selling Since</div>
+                  </div>
+                </div>
+                <div class="p-d-seller-description">
+                  <h3
+                    style="
+                      font-size: 1.1rem;
+                      font-weight: 600;
+                      color: #111827;
+                      margin-bottom: 1rem;
+                    "
+                  >
+                    About TechStore
+                  </h3>
+                  <p
+                    style="
+                      color: #6b7280;
+                      line-height: 1.6;
+                      margin-bottom: 1rem;
+                    "
+                  >
+                    TechStore Official is a leading retailer of premium
+                    electronics and accessories. We've been serving customers
+                    worldwide for over 5 years, specializing in high-quality
+                    audio equipment, smartphones, and tech accessories.
+                  </p>
+                  <p
+                    style="
+                      color: #6b7280;
+                      line-height: 1.6;
+                      margin-bottom: 1rem;
+                    "
+                  >
+                    Our commitment to excellence has earned us a 98% positive
+                    feedback rating from over 15,000 satisfied customers. We
+                    pride ourselves on fast shipping, excellent customer
+                    service, and authentic products with full manufacturer
+                    warranties.
+                  </p>
+                  <div class="seller-policies">
+                    <h4
+                      style="
+                        font-weight: 500;
+                        color: #111827;
+                        margin-bottom: 0.5rem;
+                      "
+                    >
+                      Our Policies
+                    </h4>
+                    <ul style="color: #6b7280; line-height: 1.6">
+                      <li style="margin-bottom: 0.5rem">
+                        • All products are 100% authentic and new
+                      </li>
+                      <li style="margin-bottom: 0.5rem">
+                        • Free shipping on orders over $50
+                      </li>
+                      <li style="margin-bottom: 0.5rem">
+                        • 30-day hassle-free returns
+                      </li>
+                      <li style="margin-bottom: 0.5rem">
+                        • 24/7 customer support
+                      </li>
+                      <li style="margin-bottom: 0.5rem">
+                        • Secure payment processing
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Success Modal -->
+      <div class="p-d-modal" id="successModal">
+        <div class="p-d-modal-content">
+          <div class="p-d-modal-icon">✓</div>
+          <h3 class="p-d-modal-title">Added to Cart!</h3>
+          <p class="p-d-modal-text">
+            Premium Wireless Headphones has been added to your cart.
+          </p>
+          <button class="p-d-btn p-d-btn-primary" onclick="closeModal()">
+            Continue Shopping
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>
+        &copy; <%= new Date().getFullYear() %> CraftNook. All rights reserved.
+      </p>
+    </footer>
+    <script src="/scripts/main.js"></script>
+  </body>
+</html>

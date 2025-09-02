@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Seller Registration</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script
+      src="https://kit.fontawesome.com/5e3a923ca6.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="resgister-bg">
+      <img src="/images/bgimage.jpg" alt="image" class="login-bg" />
+    </div>
+
+    <section class="register-container">
+      <div class="form-container">
+        <div class="form-header">
+          <h1>Complete Registration</h1>
+          <p>Please fill out all sections to complete your profile</p>
+        </div>
+
+        <!-- Step Indicators -->
+        <div class="step-indicators">
+          <div class="step-indicators-inner">
+            <div class="step-indicator active">1</div>
+            <div class="step-indicator">2</div>
+            <div class="step-indicator">3</div>
+            <div class="step-indicator">4</div>
+          </div>
+        </div>
+        <!-- Progress Bar -->
+        <div class="progress-container">
+          <div id="progressBar" class="progress-bar"></div>
+        </div>
+
+        <% if (error) { %>
+        <p style="color: red"><%= error %></p>
+        <% } %>
+        <div class="form-content">
+          <form method="POST" action="/seller/register">
+            <h1 class="login-title">Register as Seller</h1>
+            <!-- Step 1: Personal Information -->
+            <div id="step1" class="step-content">
+              <h3 class="step-title">Personal Info</h3>
+              <div class="form-grid two-columns">
+                <div class="form-group">
+                  <input
+                    placeholder=" "
+                    type="text"
+                    name="name"
+                    id="name"
+                    required
+                    class="form-field"
+                  />
+                  <label for="name" class="floating-label">First Name</label>
+                </div>
+                <div class="form-group">
+                  <input
+                    placeholder=" "
+                    type="text"
+                    name="lastName"
+                    required
+                    class="form-field"
+                    id="lastName"
+                  />
+                  <label for="lastName" class="floating-label">Last Name</label>
+                </div>
+
+                <div class="form-group">
+                  <input
+                    placeholder=" "
+                    type="email"
+                    name="email"
+                    required
+                    class="form-field"
+                    id="email"
+                  />
+                  <label for="email" class="floating-label"
+                    >Email Address</label
+                  >
+                </div>
+                <div class="form-group">
+                  <input
+                    placeholder=" "
+                    type="date"
+                    id="birthDate"
+                    name="birthDate"
+                    required
+                    class="form-field"
+                  />
+                  <label for="birthDate" class="floating-label"
+                    >Date of Birth</label
+                  >
+                </div>
+                <div class="form-group">
+                  <input
+                    placeholder=" "
+                    type="password"
+                    name="password"
+                    required
+                    class="form-field"
+                    id="password"
+                  />
+                  <label for="password" class="floating-label"
+                    >Enter Your Password:</label
+                  >
+                </div>
+              </div>
+            </div>
+            <!-- Step 2: Address Information -->
+            <div id="step2" class="step-content hidden">
+              <h2 class="step-title">Address Information</h2>
+              <div class="form-grid">
+                <div class="form-group">
+                  <input
+                    type="text"
+                    id="address1"
+                    name="address1"
+                    placeholder=" "
+                    required
+                    class="form-field"
+                  />
+                  <label for="address1" class="floating-label"
+                    >Street Address</label
+                  >
+                </div>
+
+                <div class="form-group">
+                  <input
+                    type="text"
+                    id="address2"
+                    name="address2"
+                    placeholder=" "
+                    class="form-field"
+                  />
+                  <label for="address2" class="floating-label"
+                    >Apartment, Suite, etc. (Optional)</label
+                  >
+                </div>
+
+                <div class="form-grid three-columns">
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      id="city"
+                      name="city"
+                      placeholder=" "
+                      required
+                      class="form-field"
+                    />
+                    <label for="city" class="floating-label">City</label>
+                  </div>
+
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      id="state"
+                      name="state"
+                      placeholder=" "
+                      required
+                      class="form-field"
+                    />
+                    <label for="state" class="floating-label"
+                      >State/Province</label
+                    >
+                  </div>
+
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      id="zipCode"
+                      name="zipCode"
+                      placeholder=" "
+                      required
+                      class="form-field"
+                    />
+                    <label for="zipCode" class="floating-label"
+                      >ZIP/Postal Code</label
+                    >
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <select
+                    id="country"
+                    name="country"
+                    required
+                    class="form-field"
+                  >
+                    <option value="">Select Country</option>
+                    <option value="in">India</option>
+                    <option value="us">United States</option>
+                    <option value="ca">Canada</option>
+                    <option value="uk">United Kingdom</option>
+                    <option value="au">Australia</option>
+                    <option value="de">Germany</option>
+                    <option value="fr">France</option>
+                    <option value="other">Other</option>
+                  </select>
+                  <label for="country" class="floating-label">Country</label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 3: Business Info -->
+            <div id="step3" class="step-content hidden">
+              <h3 class="step-title">Business Info</h3>
+              <div class="form-grid">
+                <div class="form-group">
+                  <input
+                    type="text"
+                    name="businessName"
+                    placeholder=" "
+                    required
+                    class="form-field"
+                    id="businessName"
+                  />
+                  <label for="businessName" class="floating-label"
+                    >Business Name:</label
+                  >
+                </div>
+                <div class="form-group">
+                  <select
+                    name="businessType"
+                    required
+                    class="form-field"
+                    id="businessType"
+                  >
+                    <option value="Bakery">Bakery</option>
+                    <option value="Handmade">Handmade</option>
+                    <option value="Clothing">Clothing</option>
+                    <option value="Art">Art</option>
+                    <option value="Other">Other</option>
+                  </select>
+                  <label for="businessType" class="floating-label"
+                    >Business Type</label
+                  >
+                </div>
+                <div class="form-group">
+                  <input
+                    type="text"
+                    placeholder="Ex. Crochet accessories "
+                    id="business-des"
+                    name="business-des"
+                    class="form-field"
+                  />
+                  <label for="business-des" class="floating-label"
+                    >Business type</label
+                  >
+                </div>
+
+                <!-- <div class="form-group">
+                  <textarea
+                    name="description"
+                    placeholder=" "
+                    required
+                    class="form-field"
+                    id="b-description"
+                  ></textarea>
+                  <label for="b-description" class="floating-label"
+                    >What do you sell?</label
+                  >
+                </div> -->
+              </div>
+            </div>
+
+            <div id="step4" class="step-content hidden">
+              <h3 class="step-title">Location</h3>
+              <div class="form-grid">
+                <div class="form-group">
+                  <select
+                    name="locationType"
+                    required
+                    class="form-field"
+                    id="locationType"
+                  >
+                    <option value="Local">Local</option>
+                    <option value="State">State</option>
+                    <option value="Country">Country</option>
+                    <option value="Worldwide">Worldwide</option>
+                  </select>
+                  <label for="locationType" class="floating-label"
+                    >Sell To:</label
+                  >
+                </div>
+                <div class="form-group">
+                  <input
+                    type="text"
+                    name="locationName"
+                    placeholder=" "
+                    class="form-field"
+                    id="locationName"
+                  />
+                  <label for="locationName" class="floating-label"
+                    >Location Name:</label
+                  >
+                </div>
+                <!-- <div class="form-group">
+                    <label for="locationName">Location Name:</label>
+                    <input
+                      type="text"
+                      name="locationName"
+                      placeholder="City/State/Country (if not Worldwide)"
+                      class="login-input"
+                    />
+                  </div> -->
+                <div class="form-group">
+                  <label for="contact" class="floating-label"
+                    >Contact Info:</label
+                  >
+                  <input
+                    type="text"
+                    name="contact"
+                    placeholder=" "
+                    class="form-field"
+                  />
+                </div>
+                <div class="terms-section">
+                  <label>
+                    <input type="checkbox" name="terms" required />
+                    I agree to the <a href="#">Terms of Service</a> and
+                    <a href="#">Privacy Policy</a>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <!-- Navigation Buttons -->
+            <div class="navigation-buttons">
+              <button
+                type="button"
+                id="prevBtn"
+                onclick="changeStep(-1)"
+                class="btn btn-secondary hidden"
+              >
+                ← Previous
+              </button>
+
+              <button
+                type="button"
+                id="nextBtn"
+                onclick="changeStep(1)"
+                class="btn btn-primary"
+              >
+                Next →
+              </button>
+
+              <button
+                type="submit"
+                id="submitBtn"
+                class="btn btn-success hidden"
+              >
+                Complete Registration ✨
+              </button>
+            </div>
+
+            <!-- <button type="submit" class="register-btn">Register</button> -->
+          </form>
+        </div>
+        <p style="color: red"><%= error %></p>
+
+        <div class="login-register">
+          Already a seller? <a href="/login">Login Here</a>
+        </div>
+
+        <!-- Success Message
+        <div id="successMessage" class="success-message hidden">
+          <div class="success-icon">✅</div>
+          <h3 class="success-title">Registration Complete!</h3>
+          <p class="success-text">
+            Thank you for providing your information. We'll be in touch soon!
+          </p>
+        </div> -->
+      </div>
+    </section>
+    <script src="/scripts/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Card</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        min-height: 100vh;
+        background: #f9fafb;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+      }
+
+      .product-card {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        max-width: 320px;
+        width: 100%;
+        transition: all 0.3s ease;
+      }
+
+      .product-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.15);
+      }
+
+      .product-image {
+        height: 256px;
+        background: linear-gradient(135deg, #dbeafe 0%, #e9d5ff 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .product-details {
+        padding: 24px;
+      }
+
+      .product-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: #111827;
+        margin-bottom: 8px;
+      }
+
+      .product-description {
+        color: #6b7280;
+        font-size: 14px;
+        margin-bottom: 16px;
+        line-height: 1.5;
+      }
+
+      .seller-info {
+        margin-bottom: 16px;
+      }
+
+      .seller-label {
+        font-size: 14px;
+        color: #9ca3af;
+        margin-bottom: 4px;
+      }
+
+      .seller-name {
+        font-weight: 600;
+        color: #111827;
+        margin-bottom: 4px;
+      }
+
+      .seller-location {
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        color: #6b7280;
+      }
+
+      .location-icon {
+        width: 16px;
+        height: 16px;
+        margin-right: 4px;
+      }
+
+      .price-section {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 24px;
+      }
+
+      .price {
+        font-size: 32px;
+        font-weight: 700;
+        color: #111827;
+      }
+
+      .shipping {
+        color: #059669;
+        font-weight: 600;
+        font-size: 14px;
+      }
+
+      .add-to-cart-btn {
+        width: 100%;
+        background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+        color: white;
+        font-weight: 600;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        font-size: 16px;
+      }
+
+      .add-to-cart-btn:hover {
+        background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+        transform: translateY(-1px);
+      }
+
+      .cart-icon {
+        width: 20px;
+        height: 20px;
+        margin-right: 8px;
+      }
+
+      .check-icon {
+        width: 20px;
+        height: 20px;
+        margin-right: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="product-card">
+      <!-- Product Image -->
+      <div class="product-image">
+        <svg
+          width="120"
+          height="120"
+          viewBox="0 0 120 120"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <!-- Wireless Headphones -->
+          <circle
+            cx="60"
+            cy="60"
+            r="40"
+            fill="url(#gradient1)"
+            stroke="#ffffff"
+            stroke-width="3"
+          />
+          <circle cx="60" cy="60" r="30" fill="url(#gradient2)" />
+          <circle cx="60" cy="60" r="15" fill="#1f2937" />
+          <circle cx="60" cy="60" r="8" fill="#ffffff" opacity="0.3" />
+
+          <!-- Headband -->
+          <path
+            d="M30 45 Q60 25 90 45"
+            stroke="url(#gradient1)"
+            stroke-width="6"
+            fill="none"
+            stroke-linecap="round"
+          />
+
+          <!-- Side Cups -->
+          <circle
+            cx="35"
+            cy="50"
+            r="10"
+            fill="url(#gradient1)"
+            stroke="#ffffff"
+            stroke-width="2"
+          />
+          <circle
+            cx="85"
+            cy="50"
+            r="10"
+            fill="url(#gradient1)"
+            stroke="#ffffff"
+            stroke-width="2"
+          />
+
+          <defs>
+            <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color: #3b82f6" />
+              <stop offset="100%" style="stop-color: #1d4ed8" />
+            </linearGradient>
+            <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color: #e0e7ff" />
+              <stop offset="100%" style="stop-color: #c7d2fe" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+
+      <!-- Product Details -->
+      <div class="product-details">
+        <!-- Product Name -->
+        <h3 class="product-title">Wireless Headphones</h3>
+        <p class="product-description">
+          Premium noise-canceling headphones with 30-hour battery life
+        </p>
+
+        <!-- Seller Info -->
+        <div class="seller-info">
+          <p class="seller-label">Sold by</p>
+          <p class="seller-name">TechStore Pro</p>
+          <div class="seller-location">
+            <svg class="location-icon" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                fill-rule="evenodd"
+                d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            New York, NY
+          </div>
+        </div>
+
+        <!-- Price -->
+        <div class="price-section">
+          <span class="price">$199</span>
+          <span class="shipping">Free shipping</span>
+        </div>
+
+        <!-- Add to Cart Button -->
+        <button class="add-to-cart-btn" onclick="addToCart()">
+          <svg
+            class="cart-icon"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5-6m0 0h15M17 21a2 2 0 100-4 2 2 0 000 4zM9 21a2 2 0 100-4 2 2 0 000 4z"
+            />
+          </svg>
+          Add to Cart
+        </button>
+      </div>
+    </div>
+
+    <script>
+      function addToCart() {
+        const button = document.querySelector(".add-to-cart-btn");
+        const originalHTML = button.innerHTML;
+
+        button.innerHTML = `
+                <svg class="check-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+                Added!
+            `;
+        button.style.background =
+          "linear-gradient(135deg, #10b981 0%, #059669 100%)";
+
+        setTimeout(() => {
+          button.innerHTML = originalHTML;
+          button.style.background =
+            "linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)";
+        }, 2000);
+      }
+    </script>
+    <script>
+      (function () {
+        function c() {
+          var b = a.contentDocument || a.contentWindow.document;
+          if (b) {
+            var d = b.createElement("script");
+            d.innerHTML =
+              "window.__CF$cv$params={r:'975af21f205ddab3',t:'MTc1NjI5MTE3NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
+            b.getElementsByTagName("head")[0].appendChild(d);
+          }
+        }
+        if (document.body) {
+          var a = document.createElement("iframe");
+          a.height = 1;
+          a.width = 1;
+          a.style.position = "absolute";
+          a.style.top = 0;
+          a.style.left = 0;
+          a.style.border = "none";
+          a.style.visibility = "hidden";
+          document.body.appendChild(a);
+          if ("loading" !== document.readyState) c();
+          else if (window.addEventListener)
+            document.addEventListener("DOMContentLoaded", c);
+          else {
+            var e = document.onreadystatechange || function () {};
+            document.onreadystatechange = function (b) {
+              e(b);
+              "loading" !== document.readyState &&
+                ((document.onreadystatechange = e), c());
+            };
+          }
+        }
+      })();
+    </script>
+  </body>
+</html>

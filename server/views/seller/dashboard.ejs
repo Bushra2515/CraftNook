@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Seller Dashboard</title>
+    <style>
+      body {
+        font-family: Arial;
+        margin: 20px;
+      }
+      .stats {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 30px;
+      }
+      .card {
+        border: 1px solid #ddd;
+        padding: 20px;
+        border-radius: 8px;
+        flex: 1;
+        text-align: center;
+      }
+      .links {
+        margin: 20px 0;
+      }
+      .links a {
+        margin-right: 15px;
+      }
+      .recent-products ul {
+        list-style: none;
+        padding: 0;
+      }
+      .recent-products li {
+        border-bottom: 1px solid #eee;
+        padding: 10px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Welcome, Seller!</h1>
+
+    <!-- Quick Stats -->
+    <div class="stats">
+      <div class="card">
+        <h2><%= totalProducts %></h2>
+        <p>Products</p>
+      </div>
+      <div class="card">
+        <h2><%= totalOrders %></h2>
+        <p>Orders</p>
+      </div>
+    </div>
+
+    <!-- Navigation Links -->
+    <div class="links">
+      <a href="/seller/addproduct">➕ Add Product</a>
+      <a href="/seller/my-products">📦 My Products</a>
+      <a href="/seller/orders">📑 Orders</a>
+      <a href="/seller/profile">👤 Profile</a>
+      <a href="/seller/logout">🚪 Logout</a>
+    </div>
+
+    <!-- Recent Products -->
+    <div class="recent-products">
+      <h2>Recent Products</h2>
+      <% if (recentProducts.length === 0) { %>
+      <p>No products added yet.</p>
+      <% } else { %>
+      <ul>
+        <% recentProducts.forEach(product => { %>
+        <li><strong><%= product.name %></strong> - $<%= product.price %></li>
+        <% }) %>
+      </ul>
+      <% } %>
+    </div>
+  </body>
+</html>

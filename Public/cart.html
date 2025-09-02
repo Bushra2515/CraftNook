@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Featured Sellers Section</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background: #f8fafc;
+        padding: 40px 20px;
+      }
+
+      .sellers-section {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px;
+      }
+
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+      }
+
+      .section-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #2d3748;
+      }
+
+      .section-subtitle {
+        font-size: 1rem;
+        color: #718096;
+        margin-top: 5px;
+      }
+
+      .view-all-btn {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 25px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        font-size: 0.9rem;
+      }
+
+      .view-all-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+      }
+
+      .carousel-container {
+        position: relative;
+      }
+
+      .carousel-wrapper {
+        overflow: hidden;
+        border-radius: 15px;
+      }
+
+      .carousel-track {
+        display: flex;
+        gap: 20px;
+        padding: 60px 10px 20px;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+
+      .carousel-track::-webkit-scrollbar {
+        display: none;
+      }
+
+      .seller-card {
+        background: white;
+        border-radius: 20px;
+        padding: 60px 20px 25px;
+        text-align: center;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        position: relative;
+        min-width: 200px;
+        height: 260px;
+        flex-shrink: 0;
+      }
+
+      .seller-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+      }
+
+      .seller-photo {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
+        color: white;
+        border: 4px solid white;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        position: absolute;
+        top: -50px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .seller-name {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #2d3748;
+        margin-bottom: 4px;
+      }
+
+      .seller-category {
+        font-size: 0.8rem;
+        color: #a0aec0;
+        font-weight: 400;
+        margin-bottom: 10px;
+      }
+
+      .seller-description {
+        font-size: 0.75rem;
+        color: #718096;
+        line-height: 1.4;
+        text-align: center;
+        font-weight: 300;
+      }
+
+      .nav-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: white;
+        border: none;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        color: #4a5568;
+        transition: all 0.2s ease;
+        z-index: 10;
+      }
+
+      .nav-arrow:hover {
+        background: #f7fafc;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      .nav-arrow.left {
+        left: -25px;
+      }
+
+      .nav-arrow.right {
+        right: -25px;
+      }
+
+      .nav-arrow:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+      }
+
+      @media (max-width: 768px) {
+        .sellers-section {
+          padding: 20px;
+        }
+
+        .section-header {
+          flex-direction: column;
+          gap: 15px;
+          text-align: center;
+        }
+
+        .section-title {
+          font-size: 1.5rem;
+        }
+
+        .nav-arrow {
+          display: none;
+        }
+
+        .seller-card {
+          min-width: 180px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sellers-section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Featured Sellers</h2>
+          <p class="section-subtitle">
+            Discover amazing products from our top-rated sellers
+          </p>
+        </div>
+        <button class="view-all-btn" onclick="viewAllSellers()">
+          View All
+        </button>
+      </div>
+
+      <div class="carousel-container">
+        <button
+          class="nav-arrow left"
+          id="leftArrow"
+          onclick="scrollCarousel('left')"
+        >
+          ‹
+        </button>
+        <button
+          class="nav-arrow right"
+          id="rightArrow"
+          onclick="scrollCarousel('right')"
+        >
+          ›
+        </button>
+
+        <div class="carousel-wrapper">
+          <div class="carousel-track" id="carouselTrack">
+            <div class="seller-card">
+              <div class="seller-photo">👩‍🍳</div>
+              <div class="seller-name">Sarah's Kitchen</div>
+              <div class="seller-category">Gourmet Food</div>
+              <div class="seller-description">
+                Handcrafted artisanal foods and specialty ingredients from local
+                farms
+              </div>
+            </div>
+
+            <div class="seller-card">
+              <div class="seller-photo">📱</div>
+              <div class="seller-name">TechHub Store</div>
+              <div class="seller-category">Electronics</div>
+              <div class="seller-description">
+                Latest smartphones, laptops, and cutting-edge technology
+                accessories
+              </div>
+            </div>
+
+            <div class="seller-card">
+              <div class="seller-photo">👗</div>
+              <div class="seller-name">Fashion Forward</div>
+              <div class="seller-category">Clothing</div>
+              <div class="seller-description">
+                Trendy apparel and accessories for the modern lifestyle
+              </div>
+            </div>
+
+            <div class="seller-card">
+              <div class="seller-photo">🌱</div>
+              <div class="seller-name">Green Garden</div>
+              <div class="seller-category">Plants & Garden</div>
+              <div class="seller-description">
+                Organic plants and eco-friendly gardening tools for beautiful
+                spaces
+              </div>
+            </div>
+
+            <div class="seller-card">
+              <div class="seller-photo">📚</div>
+              <div class="seller-name">BookWorm's Paradise</div>
+              <div class="seller-category">Books</div>
+              <div class="seller-description">
+                Bestsellers, rare finds, and educational materials for all
+                readers
+              </div>
+            </div>
+
+            <div class="seller-card">
+              <div class="seller-photo">🎨</div>
+              <div class="seller-name">Artisan Crafts</div>
+              <div class="seller-category">Handmade</div>
+              <div class="seller-description">
+                Unique handcrafted jewelry and artistic creations by local
+                artisans
+              </div>
+            </div>
+
+            <div class="seller-card">
+              <div class="seller-photo">🏠</div>
+              <div class="seller-name">Home Decor Plus</div>
+              <div class="seller-category">Home & Living</div>
+              <div class="seller-description">
+                Beautiful furniture and decorations to make your space cozy
+              </div>
+            </div>
+
+            <div class="seller-card">
+              <div class="seller-photo">⚽</div>
+              <div class="seller-name">Sports Central</div>
+              <div class="seller-category">Sports & Fitness</div>
+              <div class="seller-description">
+                Quality sports equipment and fitness gear for active lifestyles
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const track = document.getElementById("carouselTrack");
+      const leftArrow = document.getElementById("leftArrow");
+      const rightArrow = document.getElementById("rightArrow");
+
+      function scrollCarousel(direction) {
+        const scrollAmount = 220; // Card width + gap
+
+        if (direction === "left") {
+          track.scrollLeft -= scrollAmount;
+        } else {
+          track.scrollLeft += scrollAmount;
+        }
+
+        // Update arrow states after scroll
+        setTimeout(updateArrowStates, 100);
+      }
+
+      function updateArrowStates() {
+        const maxScroll = track.scrollWidth - track.clientWidth;
+
+        leftArrow.disabled = track.scrollLeft <= 0;
+        rightArrow.disabled = track.scrollLeft >= maxScroll;
+      }
+
+      function viewAllSellers() {
+        alert(
+          "Opening full sellers page! 🛍️\n\nThis would normally navigate to a complete sellers directory."
+        );
+      }
+
+      // Initialize arrow states
+      track.addEventListener("scroll", updateArrowStates);
+      window.addEventListener("load", updateArrowStates);
+      window.addEventListener("resize", updateArrowStates);
+
+      // Touch/swipe support for mobile
+      let isDown = false;
+      let startX;
+      let scrollLeft;
+
+      track.addEventListener("mousedown", (e) => {
+        isDown = true;
+        startX = e.pageX - track.offsetLeft;
+        scrollLeft = track.scrollLeft;
+      });
+
+      track.addEventListener("mouseleave", () => {
+        isDown = false;
+      });
+
+      track.addEventListener("mouseup", () => {
+        isDown = false;
+      });
+
+      track.addEventListener("mousemove", (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - track.offsetLeft;
+        const walk = (x - startX) * 2;
+        track.scrollLeft = scrollLeft - walk;
+      });
+    </script>
+    <script>
+      (function () {
+        function c() {
+          var b = a.contentDocument || a.contentWindow.document;
+          if (b) {
+            var d = b.createElement("script");
+            d.innerHTML =
+              "window.__CF$cv$params={r:'978f390bb0aac87d',t:'MTc1NjgzOTMzOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
+            b.getElementsByTagName("head")[0].appendChild(d);
+          }
+        }
+        if (document.body) {
+          var a = document.createElement("iframe");
+          a.height = 1;
+          a.width = 1;
+          a.style.position = "absolute";
+          a.style.top = 0;
+          a.style.left = 0;
+          a.style.border = "none";
+          a.style.visibility = "hidden";
+          document.body.appendChild(a);
+          if ("loading" !== document.readyState) c();
+          else if (window.addEventListener)
+            document.addEventListener("DOMContentLoaded", c);
+          else {
+            var e = document.onreadystatechange || function () {};
+            document.onreadystatechange = function (b) {
+              e(b);
+              "loading" !== document.readyState &&
+                ((document.onreadystatechange = e), c());
+            };
+          }
+        }
+      })();
+    </script>
+  </body>
+</html>

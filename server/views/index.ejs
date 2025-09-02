@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Index</title>
+    <!--
+    - favicon
+  -->
+    <link
+      rel="shortcut icon"
+      href="./assets/images/logo/favicon.ico"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <!--
+    - google font link
+  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <script
+      src="https://kit.fontawesome.com/5e3a923ca6.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <header>
+      <!-- First Row -->
+      <div class="container">
+        <div class="top-row">
+          <!-- Logo -->
+          <a href="#" class="logo">🍰 Sweet Freeze</a>
+
+          <!-- Icons -->
+          <div class="icons">
+            <!-- Search -->
+            <!-- <input type="text" placeholder="Search products..." /> -->
+            <button class="search-btn">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+
+            <!-- Cart -->
+            <button class="action-btn">
+              <i class="fa-solid fa-cart-shopping"></i>
+            </button>
+            <!-- Account with dropdown -->
+            <div class="dropdown">
+              <button class="action-btn">
+                <i class="fa-regular fa-circle-user"></i>
+              </button>
+              <div class="dropdown-content">
+                <a href="login">Login</a>
+                <a href="user/register">Register</a>
+                <a href="user/dashboard">My Account</a>
+                <a href="#">Orders</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Second Row -->
+      <div class="nav-row">
+        <nav class="nav-links">
+          <a href="#" class="active">Home</a>
+          <a href="products">Products</a>
+          <a href="#">About Us</a>
+          <a href="#">Contacts</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="product-container">
+        <div class="main-container">
+          <h1 class="main-title">Featured Products</h1>
+          <div class="products-grid">
+            <% if (products.length === 0) { %>
+            <p>
+              No products yet. Sellers can <a href="/register">register</a> and
+              add some!
+            </p>
+            <% } else { %> <% products.forEach(p => { %>
+            <a href="/products/<%= p._id %>">
+              <div class="product-card">
+                <img
+                  src="<%= p.image %>"
+                  alt="<%= p.name %>"
+                  class="product-image"
+                />
+                <div class="product-info">
+                  <div class="product-title">
+                    <div class="bullet-point"></div>
+                    <h3 class="product-name"><%= p.name %></h3>
+                  </div>
+
+                  <p class="product-description"></p>
+                  <div class="seller-info">
+                    <p class="seller-label">Sold by</p>
+                    <p class="seller-name">
+                      <a href="sellerProfile">
+                        <%= p.seller ? p.seller.businessName : "Unknown Seller"
+                        %></a
+                      >
+                    </p>
+                    <div class="seller-location">
+                      <svg
+                        class="location-icon"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                      <%= p.location %>
+                    </div>
+                  </div>
+
+                  <p class="product-price">$<%= p.price %></p>
+
+                  <button
+                    class="add-to-cart-btn"
+                    onclick="addToCart(this, 'product')"
+                  >
+                    Add to Cart
+                  </button>
+                  <form action="/cart/add" method="POST">
+                    <input
+                      type="hidden"
+                      name="productId"
+                      value="<%= p._id %>"
+                    />
+                    <input type="number" name="quantity" value="1" min="1" />
+                    <button type="submit">Add to Cart</button>
+                  </form>
+                </div>
+              </div>
+            </a>
+
+            <% }) %> <% } %>
+          </div>
+          <button class="view-all-btn"><a href="products">View All</a></button>
+          <!-- <a href="products" class="view-all">See all products →</a> -->
+        </div>
+      </section>
+      <section class="CTA-section">
+        <div class="container">
+          <div class="cta-section">
+            <h2 class="main-heading">Ready to Transform Your Business?</h2>
+
+            <p class="subheading">
+              Join thousands of successful companies who have already
+              revolutionized their workflow with our innovative solutions.
+            </p>
+
+            <p class="supporting-text">
+              Get started today with our free trial. No credit card required, no
+              setup fees. Experience the difference in just 5 minutes.
+            </p>
+
+            <button class="cta-button">
+              <a href="/seller/register">Become an Seller</a>
+            </button>
+
+            <!-- <div class="trust-indicators">
+            <div class="trust-item">
+              <div class="checkmark">✓</div>
+              <span>Free 14-day trial</span>
+            </div>
+            <div class="trust-item">
+              <div class="checkmark">✓</div>
+              <span>No credit card required</span>
+            </div>
+            <div class="trust-item">
+              <div class="checkmark">✓</div>
+              <span>Cancel anytime</span>
+            </div>
+          </div> -->
+          </div>
+        </div>
+      </section>
+      <section>
+        <div class="container">
+          <div class="section-header">
+            <div>
+              <h2 class="main-title">Featured Sellers</h2>
+              <!-- <p class="section-subtitle">
+                Discover amazing products from our top-rated sellers
+              </p> -->
+            </div>
+          </div>
+          <div class="carousel-container">
+            <button
+              class="nav-arrow left"
+              id="leftArrow"
+              onclick="scrollCarousel('left')"
+            >
+              ‹
+            </button>
+            <button
+              class="nav-arrow right"
+              id="rightArrow"
+              onclick="scrollCarousel('right')"
+            >
+              ›
+            </button>
+
+            <div class="carousel-wrapper">
+              <div class="carousel-track" id="carouselTrack">
+                <div class="seller-card">
+                  <div class="seller-photo">👩</div>
+                  <div class="seller-name">Sarah's Kitchen</div>
+                  <div class="seller-category">Gourmet Food</div>
+                  <div class="seller-description">
+                    Handcrafted artisanal foods and specialty ingredients from
+                    local farms
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="view-all-btn" onclick="viewAllSellers()">
+              <a href="/sellerProfile">View All</a>
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <section class="container">
+        <ul class="header-social-container">
+          <li>
+            <a href="#" class="social-link">
+              <ion-icon name="logo-facebook"></ion-icon>
+            </a>
+          </li>
+
+          <li>
+            <a href="#" class="social-link">
+              <ion-icon name="logo-twitter"></ion-icon>
+            </a>
+          </li>
+
+          <li>
+            <a href="#" class="social-link">
+              <ion-icon name="logo-instagram"></ion-icon>
+            </a>
+          </li>
+
+          <li>
+            <a href="#" class="social-link">
+              <ion-icon name="logo-linkedin"></ion-icon>
+            </a>
+          </li>
+        </ul>
+
+        <p>
+          © <%= new Date().getFullYear() %> CraftNook | Connecting Small
+          Businesses to the World
+        </p>
+      </section>
+    </footer>
+  </body>
+  <script src="/scripts/main.js"></script>
+</html>

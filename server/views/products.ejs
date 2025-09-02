@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Products</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <form action="/products" method="get">
+      <label>Filter by Location:</label>
+      <select name="locationType">
+        <option value="local">Local</option>
+        <option value="State">State</option>
+        <option value="Country">Country</option>
+        <option value="worldwide">Worldwide</option>
+      </select>
+      <input type="text" name="locationName" placeholder="Enter location" />
+      <button type="submit">Search</button>
+    </form>
+    <section class="product-container">
+      <div class="main-container">
+        <h1 class="main-title">All Products</h1>
+        <div class="products-grid">
+          <% products.forEach(p => { %>
+          <div class="product-card">
+            <img
+              src="<%= p.image %>"
+              alt="<%= p.name %>"
+              class="product-image"
+            />
+            <div class="product-info">
+              <div class="product-title">
+                <div class="bullet-point"></div>
+                <h3 class="product-name"><%= p.name %></h3>
+              </div>
+              <!-- <p class="product-description"><%= p.description %></p> -->
+              <div class="seller-info">
+                <p class="seller-label">Sold by</p>
+                <p class="seller-name">
+                  <%= p.seller ? p.seller.businessName : "Unknown Seller" %>
+                </p>
+                <div class="seller-location">
+                  <svg
+                    class="location-icon"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+
+                  <%= p.location %>
+                </div>
+              </div>
+
+              <p class="product-price">$<%= p.price %></p>
+              <a href="/products/<%= p._id %>">View Details</a>
+
+              <button
+                class="add-to-cart-btn"
+                onclick="addToCart(this, 'product')"
+              >
+                Add to Cart
+              </button>
+              <form action="/cart/add" method="POST">
+                <!-- <input type="hidden" name="userId" value="<%= user._id %>" /> -->
+                <input type="hidden" name="productId" value="<%= p._id %>" />
+                <input type="number" name="quantity" value="1" min="1" />
+                <button type="submit">Add to Cart</button>
+              </form>
+            </div>
+
+            <!-- <li>
+                
+                <p><%= p.description %></p>
+                <p>Price: <%= p.price %></p>
+                <p>Category: <%= p.category %></p>
+                <p>Seller: <%= p.seller_name %> (<%= p.seller_email %>)</p>
+                <p>
+                  Location: <% if (p.locationType === "worldwide") { %> 🌎
+                  Worldwide <% } else { %> <%= p.locationName %> (<%=
+                  p.locationType %>) <% } %>
+                </p>
+                <a href="/products/<%= p._id %>">View Details</a>
+              </li> -->
+          </div>
+
+          <% }) %>
+        </div>
+      </div>
+    </section>
+  </body>
+  <script src="/scripts/main.js"></script>
+</html>

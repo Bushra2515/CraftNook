@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Seller Registration</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script
+      src="https://kit.fontawesome.com/5e3a923ca6.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <section>
+      <!-- <img src="/images/img2.jpg" alt="image" class="login-bg" /> -->
+      <div class="register-container">
+        <div class="form-container">
+          <div class="form-header">
+            <h1>Complete Registration</h1>
+            <p>Please fill out all sections to complete your profile</p>
+          </div>
+          <!-- Progress Bar -->
+          <div class="progress-container">
+            <div id="progressBar" class="progress-bar"></div>
+          </div>
+          <!-- Step Indicators -->
+          <div class="step-indicators">
+            <div class="step-indicators-inner">
+              <div class="step-indicator active">1</div>
+              <div class="step-indicator">2</div>
+              <div class="step-indicator">3</div>
+              <div class="step-indicator">4</div>
+            </div>
+          </div>
+
+          <% if (error) { %>
+          <p style="color: red"><%= error %></p>
+          <% } %>
+          <div class="form-content">
+            <form
+              method="POST"
+              action="/seller/register"
+              class="login-form"
+              onsubmit="handleSubmit(event)"
+            >
+              <h1 class="login-title">Register as Seller</h1>
+              <!-- Step 1: Personal Information -->
+              <div id="step1" class="step-content"></div>
+
+              <h3 class="login-sub-title">Personal Info</h3>
+              <div class="login-inputs">
+                <div class="input-box">
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="First Name"
+                    required
+                    class="login-input"
+                  />
+                </div>
+                <div class="input-box">
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    required
+                    class="login-input"
+                  />
+                </div>
+                <div class="input-box">
+                  <input
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    required
+                    class="login-input"
+                  />
+                </div>
+              </div>
+
+              <h3 class="login-sub-title">Business Info</h3>
+              <div class="login-inputs">
+                <div class="input-box">
+                  <input
+                    type="text"
+                    name="businessName"
+                    placeholder="Business Name"
+                    required
+                    class="login-input"
+                  />
+                </div>
+                <div class="input-box">
+                  <label>Business Type:</label>
+                  <select name="businessType" required class="login-input">
+                    <option value="Bakery">Bakery</option>
+                    <option value="Handmade">Handmade</option>
+                    <option value="Clothing">Clothing</option>
+                    <option value="Art">Art</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+                <div class="input-box">
+                  <textarea
+                    name="description"
+                    placeholder="What do you sell?"
+                    required
+                    class="login-input"
+                  ></textarea>
+                </div>
+              </div>
+
+              <h3 class="login-sub-title">Location</h3>
+              <div class="login-inputs">
+                <div class="input-box">
+                  <label for="locationType">Sell To:</label>
+                  <select name="locationType" required class="login-input">
+                    <option value="Local">Local</option>
+                    <option value="State">State</option>
+                    <option value="Regional">Regional</option>
+                    <option value="Worldwide">Worldwide</option>
+                  </select>
+                </div>
+                <div class="input-box">
+                  <label for="locationName">Location Name:</label>
+                  <input
+                    type="text"
+                    name="locationName"
+                    placeholder="City/State/Country (if not Worldwide)"
+                    class="login-input"
+                  />
+                </div>
+                <div class="input-box">
+                  <label for="locationName">Location Name:</label>
+                  <input
+                    type="text"
+                    name="locationName"
+                    placeholder="City/State/Country (if not Worldwide)"
+                    class="login-input"
+                  />
+                </div>
+                <div class="input-box">
+                  <input
+                    type="text"
+                    name="contact"
+                    placeholder="Contact Info (optional)"
+                    class="login-input"
+                  />
+                </div>
+              </div>
+
+              <button type="submit" class="register-btn">Register</button>
+            </form>
+          </div>
+          <p style="color: red"><%= error %></p>
+
+          <div class="login-register">
+            Already a seller? <a href="/login">Login Here</a>
+          </div>
+
+          <!-- Success Message -->
+          <div id="successMessage" class="success-message hidden">
+            <div class="success-icon">✅</div>
+            <h3 class="success-title">Registration Complete!</h3>
+            <p class="success-text">
+              Thank you for providing your information. We'll be in touch soon!
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
