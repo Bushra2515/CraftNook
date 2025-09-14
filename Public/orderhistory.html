@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order History</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, Cantarell, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+
+      .header {
+        background: white;
+        border-radius: 12px;
+        padding: 30px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .header h1 {
+        font-size: 2.5rem;
+        color: #333;
+        margin-bottom: 8px;
+        font-weight: 700;
+      }
+
+      .header p {
+        color: #666;
+        font-size: 1.1rem;
+      }
+
+      .filter-bar {
+        background: white;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      .filter-bar select,
+      .filter-bar input {
+        padding: 12px 16px;
+        border: 2px solid #e1e5e9;
+        border-radius: 8px;
+        font-size: 14px;
+        background: white;
+        transition: all 0.3s ease;
+      }
+
+      .filter-bar select:focus,
+      .filter-bar input:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      }
+
+      .filter-bar input {
+        flex: 1;
+        min-width: 200px;
+      }
+
+      .order-card {
+        background: white;
+        border-radius: 12px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .order-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+      }
+
+      .order-header {
+        padding: 25px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+
+      .order-info h3 {
+        font-size: 1.3rem;
+        color: #333;
+        margin-bottom: 5px;
+        font-weight: 600;
+      }
+
+      .order-info p {
+        color: #666;
+        font-size: 0.95rem;
+      }
+
+      .order-status {
+        text-align: right;
+      }
+
+      .status-badge {
+        display: inline-block;
+        padding: 6px 16px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+
+      .status-delivered {
+        background: #d4edda;
+        color: #155724;
+      }
+
+      .status-shipped {
+        background: #cce7ff;
+        color: #004085;
+      }
+
+      .status-processing {
+        background: #fff3cd;
+        color: #856404;
+      }
+
+      .status-cancelled {
+        background: #f8d7da;
+        color: #721c24;
+      }
+
+      .order-total {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: #333;
+      }
+
+      .order-content {
+        padding: 0 25px 25px;
+        border-top: 1px solid #f0f0f0;
+        padding-top: 20px;
+      }
+
+      .items-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+
+      .item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 15px;
+        background: #f8f9fa;
+        border-radius: 8px;
+      }
+
+      .item-icon {
+        width: 60px;
+        height: 60px;
+        background: #e9ecef;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+        flex-shrink: 0;
+      }
+
+      .item-details h4 {
+        font-size: 1rem;
+        color: #333;
+        margin-bottom: 4px;
+        font-weight: 500;
+      }
+
+      .item-details p {
+        color: #666;
+        font-size: 0.9rem;
+      }
+
+      .order-alert {
+        background: #e7f3ff;
+        border: 1px solid #b3d9ff;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+        color: #004085;
+        font-size: 0.9rem;
+      }
+
+      .button-group {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        padding: 12px 20px;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+        border: none;
+      }
+
+      .btn-primary {
+        background: #667eea;
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background: #5a6fd8;
+        transform: translateY(-1px);
+      }
+
+      .btn-secondary {
+        background: white;
+        color: #666;
+        border: 2px solid #e1e5e9;
+      }
+
+      .btn-secondary:hover {
+        background: #f8f9fa;
+        border-color: #d1d5db;
+      }
+
+      .btn-danger {
+        background: white;
+        color: #dc3545;
+        border: 2px solid #f5c6cb;
+      }
+
+      .btn-danger:hover {
+        background: #f8d7da;
+      }
+
+      .load-more {
+        text-align: center;
+        margin-top: 30px;
+      }
+
+      .load-more .btn {
+        padding: 15px 30px;
+        font-size: 1rem;
+      }
+
+      @media (max-width: 768px) {
+        .header h1 {
+          font-size: 2rem;
+        }
+
+        .filter-bar {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .filter-bar select,
+        .filter-bar input {
+          width: 100%;
+        }
+
+        .order-header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .order-status {
+          text-align: left;
+        }
+
+        .items-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .button-group {
+          flex-direction: column;
+        }
+
+        .btn {
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <h1>Order History</h1>
+        <p>Track and manage your past orders</p>
+      </div>
+
+      <!-- Filter Bar -->
+      <div class="filter-bar">
+        <select>
+          <option>All Orders</option>
+          <option>Last 30 Days</option>
+          <option>Last 3 Months</option>
+          <option>Last Year</option>
+        </select>
+        <select>
+          <option>All Status</option>
+          <option>Delivered</option>
+          <option>Shipped</option>
+          <option>Processing</option>
+          <option>Cancelled</option>
+        </select>
+        <input type="text" placeholder="Search orders..." />
+      </div>
+
+      <!-- Orders List -->
+      <div class="orders-list">
+        <!-- Order 1 -->
+        <div class="order-card">
+          <div class="order-header">
+            <div class="order-info">
+              <h3>Order #ORD-2024-001</h3>
+              <p>Placed on March 15, 2024</p>
+            </div>
+            <div class="order-status">
+              <span class="status-badge status-delivered">Delivered</span>
+              <div class="order-total">$129.99</div>
+            </div>
+          </div>
+
+          <div class="order-content">
+            <div class="items-grid">
+              <div class="item">
+                <div class="item-icon">📱</div>
+                <div class="item-details">
+                  <h4>Wireless Bluetooth Headphones</h4>
+                  <p>Quantity: 1 • $79.99</p>
+                </div>
+              </div>
+              <div class="item">
+                <div class="item-icon">⌚</div>
+                <div class="item-details">
+                  <h4>Smart Watch Band</h4>
+                  <p>Quantity: 2 • $15.00 each</p>
+                </div>
+              </div>
+              <div class="item">
+                <div class="item-icon">🔌</div>
+                <div class="item-details">
+                  <h4>USB-C Charging Cable</h4>
+                  <p>Quantity: 1 • $12.99</p>
+                </div>
+              </div>
+              <div class="item">
+                <div class="item-icon">📦</div>
+                <div class="item-details">
+                  <h4>Phone Case - Clear</h4>
+                  <p>Quantity: 1 • $7.01</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="button-group">
+              <button
+                class="btn btn-primary"
+                onclick="alert('Opening order details...')"
+              >
+                View Details
+              </button>
+              <button
+                class="btn btn-secondary"
+                onclick="alert('Opening package tracking...')"
+              >
+                Track Package
+              </button>
+              <button
+                class="btn btn-secondary"
+                onclick="alert('Adding items to cart...')"
+              >
+                Reorder
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Order 2 -->
+        <div class="order-card">
+          <div class="order-header">
+            <div class="order-info">
+              <h3>Order #ORD-2024-002</h3>
+              <p>Placed on March 10, 2024</p>
+            </div>
+            <div class="order-status">
+              <span class="status-badge status-shipped">Shipped</span>
+              <div class="order-total">$89.50</div>
+            </div>
+          </div>
+
+          <div class="order-content">
+            <div class="items-grid">
+              <div class="item">
+                <div class="item-icon">👕</div>
+                <div class="item-details">
+                  <h4>Cotton T-Shirt - Navy Blue</h4>
+                  <p>Quantity: 2 • $19.99 each</p>
+                </div>
+              </div>
+              <div class="item">
+                <div class="item-icon">👖</div>
+                <div class="item-details">
+                  <h4>Denim Jeans - Slim Fit</h4>
+                  <p>Quantity: 1 • $49.99</p>
+                </div>
+              </div>
+              <div class="item">
+                <div class="item-icon">🧢</div>
+                <div class="item-details">
+                  <h4>Baseball Cap - Black</h4>
+                  <p>Quantity: 1 • $24.99</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="order-alert">
+              📦 Your order is on its way! Expected delivery: March 18, 2024
+            </div>
+
+            <div class="button-group">
+              <button
+                class="btn btn-primary"
+                onclick="alert('Opening order details...')"
+              >
+                View Details
+              </button>
+              <button
+                class="btn btn-secondary"
+                onclick="alert('Opening package tracking...')"
+              >
+                Track Package
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Order 3 -->
+        <div class="order-card">
+          <div class="order-header">
+            <div class="order-info">
+              <h3>Order #ORD-2024-003</h3>
+              <p>Placed on March 5, 2024</p>
+            </div>
+            <div class="order-status">
+              <span class="status-badge status-processing">Processing</span>
+              <div class="order-total">$245.00</div>
+            </div>
+          </div>
+
+          <div class="order-content">
+            <div class="items-grid">
+              <div class="item">
+                <div class="item-icon">💻</div>
+                <div class="item-details">
+                  <h4>Adjustable Laptop Stand - Aluminum</h4>
+                  <p>Quantity: 1 • $89.99</p>
+                </div>
+              </div>
+              <div class="item">
+                <div class="item-icon">🖱️</div>
+                <div class="item-details">
+                  <h4>Wireless Mouse - Ergonomic</h4>
+                  <p>Quantity: 1 • $34.99</p>
+                </div>
+              </div>
+              <div class="item">
+                <div class="item-icon">⌨️</div>
+                <div class="item-details">
+                  <h4>Mechanical Keyboard - RGB</h4>
+                  <p>Quantity: 1 • $79.99</p>
+                </div>
+              </div>
+              <div class="item">
+                <div class="item-icon">🎧</div>
+                <div class="item-details">
+                  <h4>USB Headset with Microphone</h4>
+                  <p>Quantity: 1 • $39.99</p>
+                </div>
+              </div>
+              <div class="item">
+                <div class="item-icon">📱</div>
+                <div class="item-details">
+                  <h4>Phone Holder for Desk</h4>
+                  <p>Quantity: 1 • $12.99</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="button-group">
+              <button
+                class="btn btn-primary"
+                onclick="alert('Opening order details...')"
+              >
+                View Details
+              </button>
+              <button
+                class="btn btn-danger"
+                onclick="if(confirm('Are you sure you want to cancel this order?')) alert('Order cancelled successfully')"
+              >
+                Cancel Order
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Load More Button -->
+      <div class="load-more">
+        <button
+          class="btn btn-secondary"
+          onclick="alert('Loading more orders...')"
+        >
+          Load More Orders
+        </button>
+      </div>
+    </div>
+    <!--  -->
+
+    <script>
+      // Filter functionality
+      const filterSelects = document.querySelectorAll("select");
+      const searchInput = document.querySelector('input[type="text"]');
+
+      filterSelects.forEach((select) => {
+        select.addEventListener("change", function () {
+          console.log("Filter changed:", this.value);
+        });
+      });
+
+      searchInput.addEventListener("input", function () {
+        console.log("Search:", this.value);
+      });
+    </script>
+    <script>
+      (function () {
+        function c() {
+          var b = a.contentDocument || a.contentWindow.document;
+          if (b) {
+            var d = b.createElement("script");
+            d.innerHTML =
+              "window.__CF$cv$params={r:'97ef906a10aa3ac8',t:'MTc1Nzg0OTU1MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
+            b.getElementsByTagName("head")[0].appendChild(d);
+          }
+        }
+        if (document.body) {
+          var a = document.createElement("iframe");
+          a.height = 1;
+          a.width = 1;
+          a.style.position = "absolute";
+          a.style.top = 0;
+          a.style.left = 0;
+          a.style.border = "none";
+          a.style.visibility = "hidden";
+          document.body.appendChild(a);
+          if ("loading" !== document.readyState) c();
+          else if (window.addEventListener)
+            document.addEventListener("DOMContentLoaded", c);
+          else {
+            var e = document.onreadystatechange || function () {};
+            document.onreadystatechange = function (b) {
+              e(b);
+              "loading" !== document.readyState &&
+                ((document.onreadystatechange = e), c());
+            };
+          }
+        }
+      })();
+    </script>
+  </body>
+</html>
+
+  <div class="container">
+      <!-- header -->
+      <div class="header-hist">
+        <h1>Order History</h1>
+        <p>Track and manage your past orders</p>
+      </div>
+
+      <!-- filter bar -->
+      <div class="filter-bar-hist">
+        <select>
+          <option>All Orders</option>
+          <option>Last 30 Days</option>
+          <option>Last 3 Months</option>
+          <option>Last Year</option>
+        </select>
+        <select>
+          <option>All Status</option>
+          <option>Delivered</option>
+          <option>Shipped</option>
+          <option>Processing</option>
+          <option>Cancelled</option>
+        </select>
+        <input type="text" placeholder="Search orders..." />
+      </div>
+
+      <!-- order list -->
+      <div class="orders-list-hist">
+        <% if (orders.length === 0) { %>
+         <p>You have no orders yet.</p>
+         <% } else { %> <% orders.forEach(order => { %>
+          <div class="order-card-hist">
+            <% order.sellers.forEach(sellerBlock => { %>
+              <div class="order-header-hist">
+               <div class="order-info-hist">
+                 <h3>Order ID: <%= order._id %></h3>
+                 <p>Date:</strong> <%= order.createdAt.toDateString() %></p>
+               </div>           
+               <div class="order-status-hist">
+                  <span class="status-badge-hist status-delivered-hist"
+                  ><%= order.status %></span
+                  > 
+             
+                 <div class="order-total-hist">₹<%= sellerBlock.totalAmount %></div>
+               </div>                 
+              </div>              
+              <div class="order-content-hist">
+                <p><strong>Seller:</strong> <%= sellerBlock.seller.name %></p>
+                <% sellerBlock.products.forEach(item => { %>
+                  <div class="items-grid-hist">
+                    <div class="item-hist">
+                      <!-- <div class="item-icon-hist">📱</div> -->
+                       <div class="item-details-hist">
+                         <h4><%= item.product.name %></h4>
+                  
+                         <p><%= item.quantity %></p>
+                         <p>Price: ₹<%= item.product.price %></p>
+                         <p>Subtotal: ₹<%= item.product.price * item.quantity %></p>
+                       </div>
+                    </div>
+                  </div>
+                  <div class="button-group-hist">
+                   <button class="btn-hist btn-primary-hist" >View Details</button>
+                   <button class="btn-hist btn-secondary-hist">Track Package</button>
+                   <button class="btn-hist btn-secondary-hist">Reorder</button>
+                  </div>                                                                                                                    
+                                                                          
+              </div>                     
+              <% }) %>                    
+            <% }) %>
+                <% }) %>
+       <% } %>
+
+              
+          </div>
+      </div>
+
+      <!-- Load More Button -->
+      <div class="load-more">
+        <button
+          class="btn btn-secondary"
+          onclick="alert('Loading more orders...')"
+        >
+          Load More Orders
+        </button>
+      </div>         
+    </div>

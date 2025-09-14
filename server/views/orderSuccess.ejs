@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order Success</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <section class="orderSuccess-section">
+      <div class="container-success">
+        <!-- Success Header -->
+        <div class="success-header-success">
+          <div class="checkmark-circle-success">
+            <svg class="checkmark-success" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M5 13l4 4L19 7"
+              ></path>
+            </svg>
+          </div>
+          <h1 class="main-title-success">Order Confirmed!</h1>
+          <p class="subtitle-success">
+            Thank you for your purchase, <%= order.shippingAddress.name %>
+          </p>
+        </div>
+
+        <!-- order card detail  -->
+        <div class="card-success">
+          <div class="order-header-success">
+            <div class="order-info-success">
+              <h2>Order #<%= order._id %></h2>
+              <p class="order-date-success">
+                Placed on <%= order.createdAt.toDateString() %>
+              </p>
+            </div>
+            <div class="status-badge-success">
+              <div class="status-dot-success"></div>
+              <%= order.status %>
+            </div>
+          </div>
+
+          <!-- Order Items -->
+          <div>
+            <h3 class="section-title-success">Items Ordered</h3>
+
+            <% order.sellers.forEach(sellerGroup => { %> <%
+            sellerGroup.products.forEach(item => { %>
+            <div class="item-success">
+              <div class="item-info-success">
+                <div class="item-details-success">
+                  <h4>Seller: <%= sellerGroup.seller.name %></h4>
+                  <h4><%= item.product.name %></h4>
+                  <p class="item-qty-success">Qty: <%= item.quantity %></p>
+                </div>
+              </div>
+              <div class="item-price-success">
+                ₹<%= item.product.price * item.quantity %>
+              </div>
+            </div>
+            <% }) %> <% }) %>
+          </div>
+
+          <!-- Order Summary -->
+          <div class="order-summary-success">
+            <div class="summary-row-success">
+              <span>Total Amount</span>
+              <span
+                >₹<%= order.sellers.reduce((sum, s) => sum + s.totalAmount, 0)
+                %></span
+              >
+            </div>
+            <div class="summary-row-success">
+              <span>Shipping</span>
+              <span>Free</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Shipping Info  and billing-->
+        <div class="info-grid-success">
+          <!-- shiping address -->
+          <div class="info-card-success">
+            <div class="info-header-success">
+              <svg
+                class="info-icon-success shipping-icon-success"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                ></path>
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                ></path>
+              </svg>
+              <h3 class="section-title-success">Shipping Address</h3>
+            </div>
+
+            <div class="address-success">
+              <p class="name-success"><%= order.shippingAddress.name %></p>
+              <p><%= order.shippingAddress.phone %></p>
+              <p>
+                <%= order.shippingAddress.address %>, <%=
+                order.shippingAddress.city %>
+              </p>
+              <p>
+                <%= order.shippingAddress.state %> - <%=
+                order.shippingAddress.pincode %>
+              </p>
+            </div>
+          </div>
+
+          <!-- Payment Method -->
+          <div class="info-card-success">
+            <div class="info-header-success">
+              <svg
+                class="info-icon-success payment-icon-success"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
+                ></path>
+              </svg>
+              <h3 class="section-title-success">Payment Method</h3>
+            </div>
+            <div class="payment-method-success">
+              <div class="card-logo-success">
+                <span class="card-logo-text-success">VISA</span>
+              </div>
+              <div>
+                <p class="card-number-success">•••• •••• •••• 4242</p>
+                <p class="card-expiry-success">Expires 12/27</p>
+              </div>
+            </div>
+            <div class="payment-success-success">
+              <p class="payment-success-text-success">✅ Payment Successful</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons-ordsuccess">
+          <button class="btn-ordsuccess btn-primary-ordsuccess">
+            <svg class="btn-icon-ordsuccess" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+              ></path>
+            </svg>
+            <a href="/orders">Track Your Order</a>
+          </button>
+          <button class="btn-ordsuccess btn-secondary-ordsuccess">
+            <svg class="btn-icon-ordsuccess" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+              ></path>
+            </svg>
+            <a href="/products">Continue Shopping</a>
+          </button>
+        </div>
+        <!-- Email Confirmation Notice -->
+        <div class="email-notice-success">
+          <div class="notice-box-success">
+            <p>
+              📧 A confirmation email has been sent to
+              <strong>sarah.johnson@email.com</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+      <a href="orderHistory">past orders</a>
+    </section>
+  </body>
+</html>

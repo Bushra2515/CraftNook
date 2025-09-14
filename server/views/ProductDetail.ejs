@@ -99,11 +99,16 @@
 
               <!-- Add to Cart -->
               <div class="p-d-action-buttons">
-                <button class="p-d-btn p-d-btn-primary" onclick="addToCart()">
+                <form action="/cart/add/<%=product._id %>" method="POST">
+                  <button type="submit" class="p-d-btn p-d-btn-primary">
+                    Add to Cart
+                  </button>
+                </form>
+                <!-- <button class="p-d-btn p-d-btn-primary" onclick="addToCart()">
                   Add to Cart - $<span id="totalPrice"
                     ><%= product.price %></span
                   >
-                </button>
+                </button> -->
                 <button class="p-d-btn p-d-btn-secondary">
                   ♡ Add to Wishlist
                 </button>

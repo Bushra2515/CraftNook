@@ -1,12 +1,131 @@
-<h2>My Cart</h2>
-<ul>
-  <% cart.items.forEach(item => { %>
-  <li>
-    <%= item.product.name %> - <%= item.quantity %>
-    <form method="POST" action="/cart/remove">
-      <input type="hidden" name="productId" value="<%= item.product._id %>" />
-      <button type="submit">Remove</button>
-    </form>
-  </li>
-  <% }) %>
-</ul>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>cart</title>
+    <link rel="stylesheet" href="style.css" />
+    <script
+      src="https://kit.fontawesome.com/5e3a923ca6.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="main-content-cart">
+        <div class="cart-section-cart">
+          <div class="header-cart">
+            <h1>Shopping Cart</h1>
+            <button class="continue-shopping-cart">
+              <a href="/">Continue Shopping</a>
+            </button>
+          </div>
+          <div id="cart-content-cart">
+            <table class="cart-table-cart">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Qty</th>
+                  <th>Price</th>
+                  <th>Total</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <% if (!products) { %>
+              <tbody>
+                <tr>
+                  <td colspan="5" style="text-align: center">
+                    <i class="fa-solid fa-cart-shopping"></i> Your cart is
+                    empty.
+                  </td>
+                </tr>
+              </tbody>
+
+              <% } else { %>
+              <tbody id="cart-items-cart">
+                <% products.forEach(function(p) { %>
+                <tr class="cart-item-cart">
+                  <td>
+                    <div class="product-info-cart">
+                      <!-- <div class="product-icon-cart"> -->
+                      <img
+                        src="<%= p.product.image %>"
+                        alt="<%= p.product.name %>"
+                        class="product-image-cart"
+                      />
+                      <!-- </div> -->
+                      <div class="product-details-cart">
+                        <h3><%= p.product.name %></h3>
+                        <!-- <p>Noise Cancelling</p> -->
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <!-- for adding and reducing qty -->
+                    <div class="quantity-controls-cart">
+                      <form
+                        action="/cart/reduce/<%=p.product._id %>"
+                        method="post"
+                      >
+                        <button class="qty-btn-cart minus-cart">-</button>
+                      </form>
+
+                      <span class="quantity-cart"><%= p.qty %></span>
+                      <form
+                        action="/cart/add/<%=p.product._id %>"
+                        method="post"
+                      >
+                        <button class="qty-btn-cart plus-cart">+</button>
+                      </form>
+                    </div>
+                  </td>
+                  <td class="price-cart">₹<%= p.product.price %></td>
+                  <td class="item-total-cart price-cart">₹<%= p.price %></td>
+                  <td>
+                    <!-- remove item -->
+                    <form
+                      action="/cart/remove/<%= p.product._id %>"
+                      method="post"
+                    >
+                      <button class="remove-btn-cart">×</button>
+                    </form>
+                  </td>
+                </tr>
+              </tbody>
+              <% }) %> <% } %>
+            </table>
+          </div>
+          <!-- <div id="empty-cart" class="empty-cart" style="display: none">
+            <div class="empty-cart-icon">🛒</div>
+            <h3>Your cart is empty</h3>
+            <p>Add some items to get started!</p>
+          </div> -->
+        </div>
+        <div class="order-summary-cart">
+          <h2>Order Summary</h2>
+          <div class="summary-row-cart">
+            <span>Subtotal (<%= totalQty %> items)</span>
+            <span id="subtotal-cart">₹<%= totalPrice %></span>
+          </div>
+          <div class="summary-row-cart">
+            <span>Shipping</span>
+            <span style="color: #28a745">Free</span>
+          </div>
+          <!-- <div class="summary-row-cart">
+            <span>Tax</span>
+            <span id="tax-cart">$32.40</span>
+          </div> -->
+          <div class="summary-row-cart total-cart">
+            <span>Total</span>
+            <span id="total-cart">₹<%= totalPrice %></span>
+          </div>
+          <form action="/orders/checkout" method="get">
+            <button class="checkout-btn-cart" type="submit">
+              Proceed to Checkout
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

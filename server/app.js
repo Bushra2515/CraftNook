@@ -13,8 +13,8 @@ const app = express();
 
 //middleware
 app.use(cors());
-app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(
   session({
     secret: "yoursecretkey",
@@ -64,11 +64,11 @@ const UserAuthRoutes = require("./routes/userAuth");
 const SellerAuthRoutes = require("./routes/sellerAuth");
 const cartRoutes = require("./routes/cart");
 
-app.use("/", orderRoutes);
+app.use("/orders", orderRoutes);
 app.use("/", productRoutes);
 app.use("/", UserAuthRoutes);
 app.use("/", SellerAuthRoutes);
-app.use("/", cartRoutes);
+app.use("/cart", cartRoutes);
 
 app.get("/", (req, res) => {
   res.render("index");

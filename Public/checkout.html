@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Product Card</title>
+    <title>Checkout - Complete Your Order</title>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 
@@ -15,271 +15,419 @@
 
       body {
         font-family: "Inter", sans-serif;
+        background-color: #f9fafb;
         min-height: 100vh;
-        background: #f9fafb;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
         padding: 24px;
       }
 
-      .product-card {
-        background: white;
-        border-radius: 16px;
-        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-        max-width: 320px;
-        width: 100%;
-        transition: all 0.3s ease;
+      .header {
+        margin-bottom: 32px;
       }
 
-      .product-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.15);
-      }
-
-      .product-image {
-        height: 256px;
-        background: linear-gradient(135deg, #dbeafe 0%, #e9d5ff 100%);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .product-details {
-        padding: 24px;
-      }
-
-      .product-title {
-        font-size: 20px;
+      .header h1 {
+        font-size: 2rem;
         font-weight: 700;
         color: #111827;
         margin-bottom: 8px;
       }
 
-      .product-description {
+      .header p {
         color: #6b7280;
-        font-size: 14px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 32px;
+      }
+
+      .left-column {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+
+      .card {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        border: 1px solid #e5e7eb;
+        padding: 24px;
+      }
+
+      .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         margin-bottom: 16px;
-        line-height: 1.5;
       }
 
-      .seller-info {
-        margin-bottom: 16px;
-      }
-
-      .seller-label {
-        font-size: 14px;
-        color: #9ca3af;
-        margin-bottom: 4px;
-      }
-
-      .seller-name {
+      .card-title {
+        font-size: 1.25rem;
         font-weight: 600;
         color: #111827;
-        margin-bottom: 4px;
       }
 
-      .seller-location {
+      .edit-btn {
+        color: #2563eb;
+        text-decoration: none;
+        font-size: 0.875rem;
+        font-weight: 500;
+        cursor: pointer;
+      }
+
+      .edit-btn:hover {
+        color: #1d4ed8;
+      }
+
+      .address-info {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .address-info p {
+        color: #374151;
+      }
+
+      .address-info .name {
+        font-weight: 500;
+        color: #111827;
+      }
+
+      .address-info .phone {
+        margin-top: 12px;
+      }
+
+      .checkbox-container {
         display: flex;
         align-items: center;
-        font-size: 14px;
+      }
+
+      .checkbox {
+        width: 16px;
+        height: 16px;
+        margin-right: 8px;
+        accent-color: #2563eb;
+      }
+
+      .checkbox-label {
+        font-size: 0.875rem;
         color: #6b7280;
       }
 
-      .location-icon {
-        width: 16px;
-        height: 16px;
-        margin-right: 4px;
+      .billing-note {
+        font-size: 0.875rem;
+        color: #9ca3af;
       }
 
-      .price-section {
+      .order-summary {
+        position: sticky;
+        top: 24px;
+      }
+
+      .products {
         display: flex;
-        align-items: center;
-        justify-content: space-between;
+        flex-direction: column;
+        gap: 16px;
         margin-bottom: 24px;
       }
 
-      .price {
-        font-size: 32px;
-        font-weight: 700;
-        color: #111827;
+      .product-item {
+        display: flex;
+        align-items: center;
+        gap: 16px;
       }
 
-      .shipping {
-        color: #059669;
-        font-weight: 600;
-        font-size: 14px;
-      }
-
-      .add-to-cart-btn {
-        width: 100%;
-        background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-        color: white;
-        font-weight: 600;
-        padding: 12px 24px;
-        border: none;
+      .product-icon {
+        width: 64px;
+        height: 64px;
+        background-color: #e5e7eb;
         border-radius: 8px;
-        cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
-        transition: all 0.3s ease;
-        font-size: 16px;
+        flex-shrink: 0;
       }
 
-      .add-to-cart-btn:hover {
-        background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
-        transform: translateY(-1px);
+      .product-icon svg {
+        width: 32px;
+        height: 32px;
+        color: #9ca3af;
       }
 
-      .cart-icon {
-        width: 20px;
-        height: 20px;
-        margin-right: 8px;
+      .product-details {
+        flex: 1;
       }
 
-      .check-icon {
-        width: 20px;
-        height: 20px;
-        margin-right: 8px;
+      .product-name {
+        font-weight: 500;
+        color: #111827;
+        margin-bottom: 4px;
+      }
+
+      .product-qty {
+        font-size: 0.875rem;
+        color: #6b7280;
+      }
+
+      .product-price {
+        font-weight: 500;
+        color: #111827;
+      }
+
+      .order-totals {
+        border-top: 1px solid #e5e7eb;
+        padding-top: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .total-row {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.875rem;
+      }
+
+      .total-row.final {
+        border-top: 1px solid #e5e7eb;
+        padding-top: 8px;
+        font-size: 1.125rem;
+        font-weight: 600;
+      }
+
+      .total-label {
+        color: #6b7280;
+      }
+
+      .total-value {
+        color: #111827;
+      }
+
+      .place-order-btn {
+        width: 100%;
+        margin-top: 24px;
+        background-color: #2563eb;
+        color: white;
+        font-weight: 600;
+        padding: 12px 16px;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.2s;
+        font-size: 1rem;
+      }
+
+      .place-order-btn:hover {
+        background-color: #1d4ed8;
+      }
+
+      .place-order-btn:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.3);
+      }
+
+      .terms {
+        font-size: 0.75rem;
+        color: #9ca3af;
+        margin-top: 12px;
+        text-align: center;
+      }
+
+      @media (max-width: 1024px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+
+        .order-summary {
+          position: static;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 16px;
+        }
+
+        .header h1 {
+          font-size: 1.75rem;
+        }
+
+        .grid {
+          gap: 24px;
+        }
+
+        .card {
+          padding: 20px;
+        }
+
+        .product-item {
+          gap: 12px;
+        }
+
+        .product-icon {
+          width: 56px;
+          height: 56px;
+        }
+
+        .product-icon svg {
+          width: 28px;
+          height: 28px;
+        }
       }
     </style>
   </head>
   <body>
-    <div class="product-card">
-      <!-- Product Image -->
-      <div class="product-image">
-        <svg
-          width="120"
-          height="120"
-          viewBox="0 0 120 120"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <!-- Wireless Headphones -->
-          <circle
-            cx="60"
-            cy="60"
-            r="40"
-            fill="url(#gradient1)"
-            stroke="#ffffff"
-            stroke-width="3"
-          />
-          <circle cx="60" cy="60" r="30" fill="url(#gradient2)" />
-          <circle cx="60" cy="60" r="15" fill="#1f2937" />
-          <circle cx="60" cy="60" r="8" fill="#ffffff" opacity="0.3" />
-
-          <!-- Headband -->
-          <path
-            d="M30 45 Q60 25 90 45"
-            stroke="url(#gradient1)"
-            stroke-width="6"
-            fill="none"
-            stroke-linecap="round"
-          />
-
-          <!-- Side Cups -->
-          <circle
-            cx="35"
-            cy="50"
-            r="10"
-            fill="url(#gradient1)"
-            stroke="#ffffff"
-            stroke-width="2"
-          />
-          <circle
-            cx="85"
-            cy="50"
-            r="10"
-            fill="url(#gradient1)"
-            stroke="#ffffff"
-            stroke-width="2"
-          />
-
-          <defs>
-            <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" style="stop-color: #3b82f6" />
-              <stop offset="100%" style="stop-color: #1d4ed8" />
-            </linearGradient>
-            <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" style="stop-color: #e0e7ff" />
-              <stop offset="100%" style="stop-color: #c7d2fe" />
-            </linearGradient>
-          </defs>
-        </svg>
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <h1>Checkout</h1>
+        <p>Complete your order details below</p>
       </div>
 
-      <!-- Product Details -->
-      <div class="product-details">
-        <!-- Product Name -->
-        <h3 class="product-title">Wireless Headphones</h3>
-        <p class="product-description">
-          Premium noise-canceling headphones with 30-hour battery life
-        </p>
+      <div class="grid">
+        <!-- Left Column -->
+        <div class="left-column">
+          <!-- Shipping Address -->
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title">Shipping Address</h2>
+              <a href="#" class="edit-btn">Edit</a>
+            </div>
+            <div class="address-info">
+              <p class="name">John Smith</p>
+              <p>1234 Elm Street</p>
+              <p>Apartment 5B</p>
+              <p>San Francisco, CA 94102</p>
+              <p>United States</p>
+              <p class="phone">📞 (415) 555-0123</p>
+            </div>
+          </div>
 
-        <!-- Seller Info -->
-        <div class="seller-info">
-          <p class="seller-label">Sold by</p>
-          <p class="seller-name">TechStore Pro</p>
-          <div class="seller-location">
-            <svg class="location-icon" fill="currentColor" viewBox="0 0 20 20">
-              <path
-                fill-rule="evenodd"
-                d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
-                clip-rule="evenodd"
-              />
-            </svg>
-            New York, NY
+          <!-- Billing Address -->
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title">Billing Address</h2>
+              <div class="checkbox-container">
+                <input type="checkbox" class="checkbox" checked />
+                <span class="checkbox-label">Same as shipping</span>
+              </div>
+            </div>
+            <div class="billing-note">
+              Billing address will be the same as shipping address
+            </div>
           </div>
         </div>
 
-        <!-- Price -->
-        <div class="price-section">
-          <span class="price">$199</span>
-          <span class="shipping">Free shipping</span>
-        </div>
+        <!-- Right Column - Order Summary -->
+        <div class="order-summary">
+          <div class="card">
+            <h2 class="card-title">Order Summary</h2>
 
-        <!-- Add to Cart Button -->
-        <button class="add-to-cart-btn" onclick="addToCart()">
-          <svg
-            class="cart-icon"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5-6m0 0h15M17 21a2 2 0 100-4 2 2 0 000 4zM9 21a2 2 0 100-4 2 2 0 000 4z"
-            />
-          </svg>
-          Add to Cart
-        </button>
+            <!-- Products -->
+            <div class="products">
+              <div class="product-item">
+                <div class="product-icon">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
+                    ></path>
+                  </svg>
+                </div>
+                <div class="product-details">
+                  <div class="product-name">Wireless Headphones</div>
+                  <div class="product-qty">Qty: 1</div>
+                </div>
+                <div class="product-price">$129.99</div>
+              </div>
+
+              <div class="product-item">
+                <div class="product-icon">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    ></path>
+                  </svg>
+                </div>
+                <div class="product-details">
+                  <div class="product-name">Laptop Stand</div>
+                  <div class="product-qty">Qty: 2</div>
+                </div>
+                <div class="product-price">$79.98</div>
+              </div>
+            </div>
+
+            <!-- Order Totals -->
+            <div class="order-totals">
+              <div class="total-row">
+                <span class="total-label">Subtotal</span>
+                <span class="total-value">$209.97</span>
+              </div>
+              <div class="total-row">
+                <span class="total-label">Shipping</span>
+                <span class="total-value">$9.99</span>
+              </div>
+              <div class="total-row">
+                <span class="total-label">Tax</span>
+                <span class="total-value">$17.60</span>
+              </div>
+              <div class="total-row final">
+                <span class="total-label">Total</span>
+                <span class="total-value">$237.56</span>
+              </div>
+            </div>
+
+            <!-- Place Order Button -->
+            <button onclick="placeOrder()" class="place-order-btn">
+              Place Order
+            </button>
+
+            <p class="terms">
+              By placing your order, you agree to our Terms of Service
+            </p>
+          </div>
+        </div>
       </div>
     </div>
 
     <script>
-      function addToCart() {
-        const button = document.querySelector(".add-to-cart-btn");
-        const originalHTML = button.innerHTML;
+      function placeOrder() {
+        alert(
+          `Thank you John Smith! Your order has been placed successfully.\n\nShipping to:\n1234 Elm Street, Apartment 5B\nSan Francisco, CA 94102\n\nOrder Total: $237.56\nYou will receive a confirmation email shortly.`
+        );
 
-        button.innerHTML = `
-                <svg class="check-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                </svg>
-                Added!
-            `;
-        button.style.background =
-          "linear-gradient(135deg, #10b981 0%, #059669 100%)";
-
-        setTimeout(() => {
-          button.innerHTML = originalHTML;
-          button.style.background =
-            "linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)";
-        }, 2000);
+        console.log("Order placed:", {
+          name: "John Smith",
+          address: "1234 Elm Street, Apartment 5B, San Francisco, CA 94102",
+          phone: "(415) 555-0123",
+          total: "$237.56",
+        });
       }
+
+      document
+        .querySelector(".checkbox")
+        .addEventListener("change", function (e) {
+          const billingNote = document.querySelector(".billing-note");
+          if (e.target.checked) {
+            billingNote.textContent =
+              "Billing address will be the same as shipping address";
+          } else {
+            billingNote.textContent = "Please enter your billing address below";
+          }
+        });
     </script>
     <script>
       (function () {
@@ -288,7 +436,7 @@
           if (b) {
             var d = b.createElement("script");
             d.innerHTML =
-              "window.__CF$cv$params={r:'975af21f205ddab3',t:'MTc1NjI5MTE3NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
+              "window.__CF$cv$params={r:'97f05b6fa4be578d',t:'MTc1Nzg1Nzg2Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
             b.getElementsByTagName("head")[0].appendChild(d);
           }
         }

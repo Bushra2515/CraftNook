@@ -32,7 +32,7 @@ exports.userRegister = async (req, res) => {
       role: "buyer", // 👈 fixed role
     });
 
-    res.redirect("login");
+    res.redirect("/login");
   } catch (err) {
     console.error("User register error:", err);
     res.render("user/register", { error: "Server error, try again." });
@@ -137,5 +137,29 @@ exports.userDashboard = async (req, res) => {
   } catch (err) {
     console.error("User dashboard error:", err);
     res.status(500).send("Error loading user dashboard");
+  }
+};
+
+//get user address form for shipping
+
+// Show address form
+exports.getAddressForm = (req, res) => {
+  res.render("addressForm", { user: req.user });
+};
+
+// Save or update address
+exports.saveAddress = async (req, res) => {
+  try {
+    const { name, phone, address, city, state, pincode } = req.body;
+
+    const user = await User.findById(req.user._id);
+    user.address = { name, phone, address, city, state, pincode };
+    await user.save();
+
+    // After saving, go back to checkout
+    res.redirect("/orders/checkout");
+  } catch (err) {
+    console.error("Save address error:", err);
+    res.status(500).send("server error");
   }
 };

@@ -16,6 +16,14 @@ const userSchema = new mongoose.Schema(
       enum: ["buyer", "seller", "admin"],
       default: "buyer",
     },
+    address: {
+      name: String,
+      phone: String,
+      address: String,
+      city: String,
+      state: String,
+      pincode: String,
+    },
 
     // Only for sellers
     sellerProfile: {
@@ -47,5 +55,5 @@ const userSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-
+//need to add admin schema
 module.exports = mongoose.model("User", userSchema);

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order History</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- header -->
+      <div class="header-hist">
+        <h1>Order History</h1>
+        <p>Track and manage your past orders</p>
+      </div>
+
+      <!-- filter bar -->
+      <div class="filter-bar-hist">
+        <select>
+          <option>All Orders</option>
+          <option>Last 30 Days</option>
+          <option>Last 3 Months</option>
+          <option>Last Year</option>
+        </select>
+        <select>
+          <option>All Status</option>
+          <option>Delivered</option>
+          <option>Shipped</option>
+          <option>Processing</option>
+          <option>Cancelled</option>
+        </select>
+        <input type="text" placeholder="Search orders..." />
+      </div>
+
+      <!-- order list -->
+      <div class="orders-list-hist">
+        <% if (orders.length === 0) { %>
+        <p>You have no orders yet.</p>
+        <% } else { %> <% orders.forEach(order => { %>
+        <div class="order-card-hist">
+          <% order.sellers.forEach(sellerBlock => { %>
+          <div class="order-header-hist">
+            <div class="order-info-hist">
+              <h3>Order ID: <%= order._id %></h3>
+              <p>Date: <%= order.createdAt.toDateString() %></p>
+              <p class="seller-name-hist">
+                Seller: <%= sellerBlock.seller.name %>
+              </p>
+            </div>
+            <div class="order-status-hist">
+              <span class="status-badge-hist status-delivered-hist">
+                <%= order.status %>
+              </span>
+              <div class="order-total-hist">
+                ₹<%= sellerBlock.totalAmount %>
+              </div>
+            </div>
+          </div>
+
+          <div class="order-content-hist">
+            <!-- <p><strong>Seller:</strong> <%= sellerBlock.seller.name %></p> -->
+
+            <div class="items-grid-hist">
+              <% sellerBlock.products.forEach(item => { %>
+
+              <div class="item-hist">
+                <div class="item-icon-hist">📱</div>
+                <div class="item-details-hist">
+                  <h4><%= item.product.name %></h4>
+                  <p>Quantity: <%= item.quantity %></p>
+                  <p>Price: ₹<%= item.product.price %></p>
+                  <p>Subtotal: ₹<%= item.product.price * item.quantity %></p>
+                </div>
+              </div>
+
+              <% }) %>
+            </div>
+
+            <div class="button-group-hist">
+              <button class="btn-hist btn-primary-hist">View Details</button>
+              <button class="btn-hist btn-secondary-hist">Track Package</button>
+              <button class="btn-hist btn-secondary-hist">Reorder</button>
+            </div>
+          </div>
+          <% }) %>
+        </div>
+        <% }) %> <% } %>
+      </div>
+
+      <!-- Load More Button -->
+      <div class="load-more-hist">
+        <button class="btn-hist btn-secondary-hist">Load More Orders</button>
+      </div>
+    </div>
+
+    <!-- <h2>My Orders</h2>
+
+    <% if (orders.length === 0) { %>
+    <p>You have no orders yet.</p>
+    <% } else { %>
+    <ul>
+      <% orders.forEach(order => { %>
+      <li style="margin-bottom: 20px; border: 1px solid #ddd; padding: 10px">
+        <p><strong>Order ID:</strong> <%= order._id %></p>
+        <p><strong>Date:</strong> <%= order.createdAt.toDateString() %></p>
+
+        <% order.sellers.forEach(sellerBlock => { %>
+        <div
+          style="
+            margin-top: 10px;
+            padding-left: 10px;
+            border-left: 3px solid #ccc;
+          "
+        >
+          <p><strong>Seller:</strong> <%= sellerBlock.seller.name %></p>
+          <p><strong>Status:</strong> <%= sellerBlock.status %></p>
+          <p><strong>Total:</strong> ₹<%= sellerBlock.totalAmount %></p>
+
+          <h4>Items:</h4>
+          <ul>
+            <% sellerBlock.products.forEach(item => { %>
+            <li><%= item.product.name %> — Qty: <%= item.quantity %></li>
+            <% }) %>
+          </ul>
+        </div>
+        <% }) %>
+      </li>
+      <% }) %>
+    </ul>
+    <% } %> -->
+  </body>
+</html>

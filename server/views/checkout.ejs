@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>checkout</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="header-checkout">
+        <h1>Checkout</h1>
+        <p>Complete your order details below</p>
+      </div>
+      <div class="grid-checkout">
+        <!-- Left Column -->
+        <div class="left-column-checkout">
+          <!-- Shipping Address -->
+          <div class="card-checkout">
+            <div class="card-header-checkout">
+              <h2 class="card-title-checkout">Shipping Address</h2>
+              <a href="/user/address" class="edit-btn-checkout">Edit</a>
+            </div>
+            <div class="address-info-checkout">
+              <% if (address) { %>
+              <p class="name-checkout"><%= address.name %></p>
+              <p><%= address.address %></p>
+              <p><%= address.city %></p>
+              <p><%= address.state %>, <%= address.pincode %></p>
+              <p class="phone-checkout">📞 <%= address.phone %></p>
+
+              <% } else { %>
+              <p>No address saved.</p>
+              <a href="/user/address">Add Address</a>
+              <% } %>
+            </div>
+          </div>
+
+          <!-- Billing Address -->
+          <div class="card-checkout">
+            <div class="card-header-checkout">
+              <h2 class="card-title-checkout">Billing Address</h2>
+              <div class="checkbox-container-checkout">
+                <input type="checkbox" class="checkbox-checkout" checked />
+                <span class="checkbox-label-checkout">Same as shipping</span>
+              </div>
+            </div>
+            <div class="billing-note-checkout">
+              Billing address will be the same as shipping address
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column - Order Summary -->
+        <div class="order-summary-checkout">
+          <div class="card-checkout">
+            <h2 class="card-title-checkout">Order Summary</h2>
+
+            <!-- Products -->
+            <div class="products-checkout">
+              <% cart.items.forEach(item => { %>
+              <div class="product-item-checkout">
+                <div class="product-icon-checkout">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
+                    ></path>
+                  </svg>
+                </div>
+
+                <div class="product-details-checkout">
+                  <div class="product-name-checkout">
+                    <%= item.product.name %>
+                  </div>
+                  <div class="product-qty-checkout">Qty: <%= item.qty %></div>
+                </div>
+                <div class="product-price-checkout">₹<%= item.price %></div>
+              </div>
+              <% }) %>
+            </div>
+
+            <!-- Order Totals -->
+            <div class="order-totals-checkout">
+              <div class="total-row-checkout">
+                <span class="total-label-checkout">Subtotal</span>
+                <span class="total-value-checkout">$209.97</span>
+              </div>
+              <!-- <div class="total-row-checkout">
+                <span class="total-label-checkout">Shipping</span>
+                <span class="total-value-checkout">$9.99</span>
+              </div>
+              <div class="total-row-checkout">
+                <span class="total-label-checkout">Tax</span>
+                <span class="total-value-checkout">$17.60</span>
+              </div> -->
+              <div class="total-row-checkout final-checkout">
+                <span class="total-label-checkout">Total</span>
+                <span class="total-value-checkout"
+                  >₹<%= cart.totalPrice %></span
+                >
+              </div>
+            </div>
+
+            <!-- Place Order Button -->
+            <form action="/orders/place-order" method="post">
+              <button type="submit" class="place-order-btn-checkout">
+                Place Order
+              </button>
+            </form>
+
+            <p class="terms-checkout">
+              By placing your order, you agree to our Terms of Service
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

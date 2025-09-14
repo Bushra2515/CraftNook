@@ -59,17 +59,10 @@
               <p class="product-price">$<%= p.price %></p>
               <a href="/products/<%= p._id %>">View Details</a>
 
-              <button
-                class="add-to-cart-btn"
-                onclick="addToCart(this, 'product')"
-              >
-                Add to Cart
-              </button>
-              <form action="/cart/add" method="POST">
-                <!-- <input type="hidden" name="userId" value="<%= user._id %>" /> -->
-                <input type="hidden" name="productId" value="<%= p._id %>" />
-                <input type="number" name="quantity" value="1" min="1" />
-                <button type="submit">Add to Cart</button>
+              <form action="/cart/add/<%=p._id %>" method="POST">
+                <button type="submit" class="add-to-cart-btn">
+                  Add to Cart
+                </button>
               </form>
             </div>
 
