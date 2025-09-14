@@ -1,12 +1,87 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/style.css" />
     <title>Add Product</title>
   </head>
   <body>
-    <h1>Add a New Product</h1>
+    <div class="container">
+      <% if (error) { %>
+      <p style="color: red"><%= error %></p>
+      <% } %>
+      <form
+        action="/seller/addproduct"
+        method="POST"
+        enctype="multipart/form-data"
+        class="form-card-addF"
+      >
+        <h2 class="form-title-addF">Add New Product</h2>
 
-    <% if (error) { %>
+        <div class="form-grid-addF">
+          <div class="form-group-addF">
+            <label class="form-label-addF">Product Name *</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              required
+              class="form-input-addF"
+              placeholder="Product Name"
+            />
+          </div>
+          <div class="form-group-addF">
+            <label class="form-label-addF">Price</label>
+            <input
+              type="number"
+              name="price"
+              id="price"
+              required
+              class="form-input-addF"
+              placeholder="Product price"
+            />
+          </div>
+          <div class="form-group-addF">
+            <label class="form-label-addF">Description</label>
+            <textarea
+              name="description"
+              id="description"
+              class="form-input-addF"
+              placeholder="Product description"
+              required
+            ></textarea>
+          </div>
+          <div class="form-group-addF">
+            <label class="form-label-addF">Product Image</label>
+            <input
+              type="file"
+              name="image"
+              id="image"
+              required
+              class="form-input-addF"
+              placeholder="Product image"
+              accept="image/*"
+            />
+          </div>
+          <div class="form-group-addF">
+            <label class="form-label-addF">Product Name *</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              required
+              class="form-input-addF"
+              placeholder="Product Name"
+            />
+          </div>
+        </div>
+        <button type="submit" class="submit-btn-addF">Add Product</button>
+      </form>
+      <a href="/seller/dashboard">⬅ Back to Dashboard</a>
+    </div>
+
+    <!-- <% if (error) { %>
     <p style="color: red"><%= error %></p>
     <% } %>
 
@@ -49,6 +124,6 @@
       </p>
     </form>
 
-    <p><a href="/seller/dashboard">⬅ Back to Dashboard</a></p>
+    <p><a href="/seller/dashboard">⬅ Back to Dashboard</a></p> -->
   </body>
 </html>

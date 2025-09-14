@@ -141,3 +141,95 @@ exports.getOrderSuccess = async (req, res) => {
 //     res.status(500).send("Error fetching orders");
 //   }
 // };
+
+// controllers/orderController.js
+//to get sellers orders
+// exports.getSellerOrders = async (req, res) => {
+//   try {
+//     // Find all orders where the logged-in user is a seller
+//     const orders = await Order.find({ "sellers.seller": req.user._id })
+//       .populate("buyer", "name email") // only fetch buyer's name & email
+//       .populate("sellers.products.product", "name price image") // fetch product details
+//       .sort({ createdAt: -1 });
+
+//     res.render("seller/orders", { orders, sellerId: req.user._id });
+//   } catch (err) {
+//     console.error("Error fetching seller orders:", err);
+//     res.status(500).send("Server error");
+//   }
+// };
+
+// Seller Orders with Filters & Sorting
+exports.getSellerOrders = async (req, res) => {
+  try {
+    const sellerId = req.user._id;
+
+    // Filters
+    const status = req.query.status || null; // ?status=pending
+    let filter = { "sellers.seller": sellerId };
+    if (status) {
+      filter.status = status;
+    }
+
+    // Sorting
+    const sortBy = req.query.sort === "oldest" ? 1 : -1; // ?sort=oldest or newest
+
+    const orders = await Order.find(filter)
+      .populate("buyer", "name email")
+      .populate("sellers.products.product", "name price image")
+      .sort({ createdAt: sortBy });
+
+    res.render("seller/orders", {
+      orders,
+      sellerId,
+      currentStatus: status,
+      currentSort: req.query.sort || "newest",
+    });
+  } catch (err) {
+    console.error("Error fetching seller orders:", err);
+    res.status(500).send("Server error");
+  }
+};
+
+// Seller Updates Order Status
+exports.updateSellerOrder = async (req, res) => {
+  try {
+    const sellerId = req.user._id;
+    const orderId = req.params.id;
+    const newStatus = req.query.status; // e.g., confirmed, shipped, delivered, cancelled
+
+    // Validate status
+    const allowedStatuses = [
+      "pending",
+      "confirmed",
+      "shipped",
+      "delivered",
+      "cancelled",
+    ];
+    if (!allowedStatuses.includes(newStatus)) {
+      return res.status(400).send("Invalid status");
+    }
+
+    // Find the order where seller is involved
+    const order = await Order.findOne({
+      _id: orderId,
+      "sellers.seller": sellerId,
+    });
+    if (!order) {
+      return res.status(404).send("Order not found");
+    }
+
+    //update only this sellers status
+    const sellerOrder = order.sellers.find(
+      (s) => s.seller.toString() === sellerId.toString()
+    );
+    if (!sellerOrder) return res.status(404).send("seller order not found");
+    sellerOrder.status = newStatus;
+    await order.save();
+
+    res.redirect("/seller/orders");
+  } catch (err) {
+    console.error("Error updating seller order:", err);
+    res.status(500).send("Server error");
+  }
+};

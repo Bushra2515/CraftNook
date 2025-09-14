@@ -240,7 +240,7 @@ exports.showProducts = async (req, res) => {
 //     res.status(500).send("server error");
 //   }
 // });
-console.log("product seller", Product.seller);
+// console.log("product seller", Product.seller);
 exports.getProductDetail = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id).populate("seller");

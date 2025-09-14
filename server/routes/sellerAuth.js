@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
+const { isAuthenticated, isBuyer, isSeller } = require("../middleware/auth");
 //for seller dashboard and register
 const {
   renderSellerRegister,
@@ -25,6 +26,7 @@ const {
   updateProduct,
   deleteProduct,
 } = require("../controllers/productController");
+const orderController = require("../controllers/orderController");
 
 // Register
 router.get("/seller/register", renderSellerRegister);
@@ -51,6 +53,20 @@ router.post("/seller/edit/:id", uploadMiddleware, updateProduct);
 router.get("/seller/delete/:id", deleteProduct);
 
 //getting seller profile
-router.get("/seller/:id", getSellerProfile);
+// router.get("/seller/:id", getSellerProfile);
+
+router.get(
+  "/seller/orders",
+  isAuthenticated,
+  isSeller,
+  orderController.getSellerOrders
+);
+
+router.get(
+  "/seller/:id/update",
+  isAuthenticated,
+  isSeller,
+  orderController.updateSellerOrder
+);
 
 module.exports = router;

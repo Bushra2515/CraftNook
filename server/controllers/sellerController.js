@@ -125,19 +125,20 @@ exports.renderSellerDashboard = async (req, res) => {
 //   }
 // };
 
-exports.getSellerProfile = async (req, res) => {
-  try {
-    const seller = await User.findById(req.params.id);
+//this is for getting seller profile this not completed
+// exports.getSellerProfile = async (req, res) => {
+//   try {
+//     const seller = await User.findById(req.params.id);
 
-    if (!seller || seller.role !== "seller") {
-      return res.status(404).send("Seller not found");
-    }
+//     if (!seller || seller.role !== "seller") {
+//       return res.status(404).send("Seller not found");
+//     }
 
-    const products = await Product.find({ seller: seller._id });
+//     const products = await Product.find({ seller: seller._id });
 
-    res.render("sellerProfile", { seller, products });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Server error");
-  }
-};
+//     res.render("sellerProfile", { seller, products });
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).send("Server error");
+//   }
+// };

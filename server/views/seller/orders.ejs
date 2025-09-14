@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Seller Orders</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <div class="container">
+  <!-- Header -->
+  <div class="header-sellerOrd">
+    <h1>Orders Management</h1>
+    <p>Manage and track all your customer orders</p>
+  </div>
+
+  <div class="filters-card-sellerOrd">
+    <form method="GET" action="/seller/orders">
+      <div class="form-group-sellerOrd">
+        <label for="status">Status</label>
+        <select id="status" name="status" class="form-control-sellerOrd">
+          <option value="">All Statuses</option>
+          <option value="pending" <%= currentStatus==='pending'?'selected':'' %>>Pending</option>
+          <option value="confirmed" <%= currentStatus==='confirmed'?'selected':'' %>>Confirmed</option>
+          <option value="shipped" <%= currentStatus==='shipped'?'selected':'' %>>Shipped</option>
+          <option value="delivered" <%= currentStatus==='delivered'?'selected':'' %>>Delivered</option>
+          <option value="cancelled" <%= currentStatus==='cancelled'?'selected':'' %>>Cancelled</option>
+        </select>
+      </div>
+
+      <div class="filters-actions-sellerOrd">
+        <div class="sort-group-sellerOrd">
+          <label for="sortBy">Sort by:</label>
+          <select id="sortBy" name="sortBy" class="form-control-sellerOrd">
+            <option value="newest" <%= currentSort==='newest'?'selected':'' %>>Newest First</option>
+            <option value="oldest" <%= currentSort==='oldest'?'selected':'' %>>Oldest First</option>
+          </select>
+        </div>
+        <button class="btn-sellerOrd" type="button" onclick="clearFilters()">Clear Filters</button>
+      </div>
+      <button type="submit">Apply</button>
+    </form>
+  </div>
+
+  <div class="orders-card-sellerOrd">
+    <!-- Table Header -->
+    <div class="table-header-sellerOrd">
+      <div class="table-row-sellerOrd">
+        <div>Order ID</div>
+        <div>Buyer Info</div>
+        <div>Products</div>
+        <div>Qty</div>
+        <div>Amount</div>
+        <div>Status</div>
+        <div>Actions</div>
+      </div>
+    </div>
+
+    <div id="ordersContainer">
+      <% orders.forEach(order => { 
+          const sellerPart = order.sellers.find(s => s.seller.toString() === sellerId.toString()); 
+          if (!sellerPart) return; 
+      %>
+        <div class="order-item-sellerOrd">
+          <div class="order-content-sellerOrd">
+            <div class="table-row-sellerOrd">
+              <!-- Order ID & Date -->
+              <div>
+                <div class="order-id-sellerOrd"><%= order._id %></div>
+                <div class="order-date-sellerOrd"><%= order.createdAt ? order.createdAt.toLocaleDateString() : '' %></div>
+              </div>
+
+              <!-- Buyer Info -->
+              <div>
+                <div class="buyer-name-sellerOrd"><%= order.buyer?.name || 'N/A' %></div>
+                <div class="buyer-email-sellerOrd"><%= order.buyer?.email || '' %></div>
+                <div class="buyer-address-sellerOrd">
+                  <%= order.shippingAddress ? `${order.shippingAddress.street}, ${order.shippingAddress.city}, ${order.shippingAddress.state} ${order.shippingAddress.zip}` : 'N/A' %>
+                </div>
+              </div>
+
+              <!-- Products -->
+              <div>
+                <div class="products-list-sellerOrd">
+                  <% sellerPart.products.forEach(item => { %>
+                    <div class="product-item-sellerOrd">
+                      <span class="product-name-sellerOrd"><%= item.product?.name %></span>
+                      <span class="product-quantity-sellerOrd"> × Qty: <%= item.quantity %></span>
+                      <span class="product-quantity-sellerOrd"> × price: ₹<%= item.product?.price %></span>
+                    </div>
+                  <% }) %>
+                </div>
+              </div>
+
+              <!-- Quantity -->
+              <div class="quantity-sellerOrd">
+                <%= sellerPart.products.reduce((sum, item) => sum + item.quantity, 0) %>
+              </div>
+
+              <!-- Amount -->
+              <div class="amount-sellerOrd">
+                ₹<%= sellerPart.products.reduce((sum, item) => sum + (item.product?.price * item.quantity), 0) %>
+              </div>
+
+              <!-- Status -->
+              <div>
+                <span class="status-badge-sellerOrd status-<%= sellerPart.status %>"><%= sellerPart.status %></span>
+                <select class="status-select-sellerOrd">
+                  <option value="pending" <%= sellerPart.status==='pending'?'selected':'' %>>Pending</option>
+                  <option value="confirmed" <%= sellerPart.status==='confirmed'?'selected':'' %>>Confirmed</option>
+                  <option value="shipped" <%= sellerPart.status==='shipped'?'selected':'' %>>Shipped</option>
+                  <option value="delivered" <%= sellerPart.status==='delivered'?'selected':'' %>>Delivered</option>
+                  <option value="cancelled" <%= sellerPart.status==='cancelled'?'selected':'' %>>Cancelled</option>
+                </select>
+              </div>
+
+              <!-- Actions -->
+              <div>
+                <a
+                  href="/seller/orders/<%= order._id %>"
+                  class="view-btn-sellerOrd"
+                >View</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+  <!-- Pagination -->
+      <div class="pagination-sellerOrd">
+        <div class="pagination-info-sellerOrd">
+          Showing <span id="showingCount-sellerOrd">1-10</span> of
+          <span id="totalCount">45</span> orders
+        </div>
+        <div class="pagination-controls-sellerOrd">
+          <button class="page-btn-sellerOrd" onclick="changePage(-1)">Previous</button>
+          <button class="page-btn-sellerOrd active-sellerOrd">1</button>
+          <button class="page-btn-sellerOrd">2</button>
+          <button class="page-btn-sellerOrd">3</button>
+          <button class="page-btn-sellerOrd" onclick="changePage(1)">Next</button>
+        </div>
+      </div>
+  </div>
+  </body>
+</html>
